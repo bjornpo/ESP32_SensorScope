@@ -1,0 +1,3 @@
+[submodule "hardware/kicad/ESP32_SensorScope/libraries/digikey"]
+	path = hardware/kicad/ESP32_SensorScope/libraries/digikey
+	url = https://github.com/Digi-Key/digikey-kicad-library.git
