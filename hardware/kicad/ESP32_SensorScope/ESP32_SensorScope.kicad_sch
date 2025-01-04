@@ -1,0 +1,89 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "53b18f60-802b-4114-ad1b-2672cfed64a1")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 217.17 67.31)
+		(size 43.18 16.51)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b3798592-74ac-4b95-8881-9a4334d48d96")
+		(property "Sheetname" "ESP32-S3-DevkitC-1"
+			(at 217.17 66.5984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ESP32-S3-DevkitC-1.kicad_sch"
+			(at 217.17 84.4046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 217.17 36.83)
+		(size 40.64 16.51)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d42b7ebf-ab51-4684-9781-2f92117935ee")
+		(property "Sheetname" "ESP32-S3-WROOM-1"
+			(at 217.17 36.1184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ESP32-S3-WROOM-1.kicad_sch"
+			(at 217.17 53.9246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
