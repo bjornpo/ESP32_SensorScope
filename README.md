@@ -1,5 +1,5 @@
 # ESP32_SensorScope
-A protocol analyzer and simulator for Serial sensors
+A protocol analyzer and simulator for serial sensors
 
 
 ## Initializing Submodules
