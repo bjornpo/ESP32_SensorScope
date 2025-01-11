@@ -881,9 +881,9 @@
 		(at 120.65 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+		(in_bom no)
+		(on_board no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "7cfd4815-2639-4258-9d62-6b6fbdf1b893")
 		(property "Reference" "U1"

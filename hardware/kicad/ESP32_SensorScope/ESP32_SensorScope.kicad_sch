@@ -5,6 +5,291 @@
 	(uuid "53b18f60-802b-4114-ad1b-2672cfed64a1")
 	(paper "A4")
 	(lib_symbols)
+	(text "Use either DevkitC, or the bare WROOM unit"
+		(exclude_from_sim no)
+		(at 190.754 37.338 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "392aa33b-e3f0-4f4a-b94b-dec488b3ed8d")
+	)
+	(sheet
+		(at 161.29 109.22)
+		(size 35.56 15.24)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "023aa14c-98ee-4b74-98c6-de8e26121a9a")
+		(property "Sheetname" "RS485"
+			(at 161.29 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "RS485.kicad_sch"
+			(at 161.29 125.0446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 48.26 158.75)
+		(size 31.75 11.43)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "224d82d1-ce15-426c-a1c5-74655874862d")
+		(property "Sheetname" "Power management"
+			(at 48.26 158.0384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power_management.kicad_sch"
+			(at 48.26 170.7646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 128.27)
+		(size 30.48 15.24)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2b8f5f43-662d-408e-9b06-5f2b5cf71cbf")
+		(property "Sheetname" "SDI-12"
+			(at 88.9 127.5584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "SDI12.kicad_sch"
+			(at 88.9 144.0946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 217.17 96.52)
+		(size 43.18 11.43)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "3cb0be15-805c-46de-90ed-7dfb59d4fcea")
+		(property "Sheetname" "current_voltage_loop"
+			(at 217.17 95.8084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "current_voltage_loop.kicad_sch"
+			(at 217.17 108.5346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 50.8 97.79)
+		(size 20.32 11.43)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "46b88311-9688-470c-917a-6dd4762a83c9")
+		(property "Sheetname" "IO Extender"
+			(at 50.8 97.0784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "IO Extender.kicad_sch"
+			(at 50.8 109.8046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Field2" ""
+			(at 50.8 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 95.25 157.48)
+		(size 30.48 13.97)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "61855475-056f-41a1-be83-8f98d1ed07bc")
+		(property "Sheetname" "RS232"
+			(at 95.25 156.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "RS232.kicad_sch"
+			(at 95.25 172.0346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 76.2 86.36)
+		(size 20.32 10.16)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7bfcde62-1fc6-4742-9ded-14bc7dc34229")
+		(property "Sheetname" "UI"
+			(at 76.2 85.6484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "UI.kicad_sch"
+			(at 76.2 97.1046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "9")
+				)
+			)
+		)
+	)
 	(sheet
 		(at 217.17 67.31)
 		(size 43.18 16.51)

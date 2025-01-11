@@ -586,6 +586,34 @@
     [
       "b3798592-74ac-4b95-8881-9a4334d48d96",
       "ESP32-S3-DevkitC-1"
+    ],
+    [
+      "3cb0be15-805c-46de-90ed-7dfb59d4fcea",
+      "current_voltage_loop"
+    ],
+    [
+      "023aa14c-98ee-4b74-98c6-de8e26121a9a",
+      "RS485"
+    ],
+    [
+      "2b8f5f43-662d-408e-9b06-5f2b5cf71cbf",
+      "SDI-12"
+    ],
+    [
+      "61855475-056f-41a1-be83-8f98d1ed07bc",
+      "RS232"
+    ],
+    [
+      "224d82d1-ce15-426c-a1c5-74655874862d",
+      "Power management"
+    ],
+    [
+      "7bfcde62-1fc6-4742-9ded-14bc7dc34229",
+      "UI"
+    ],
+    [
+      "46b88311-9688-470c-917a-6dd4762a83c9",
+      "IO Extender"
     ]
   ],
   "text_variables": {}
