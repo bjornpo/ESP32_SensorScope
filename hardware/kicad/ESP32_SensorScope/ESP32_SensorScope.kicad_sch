@@ -215,6 +215,44 @@
 		)
 	)
 	(sheet
+		(at 71.755 36.195)
+		(size 25.4 12.065)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "4af4fde4-43c0-43ec-977d-24ae1ed6a694")
+		(property "Sheetname" "Scope"
+			(at 71.755 35.4834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Scope.kicad_sch"
+			(at 71.755 48.8446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 95.25 157.48)
 		(size 30.48 13.97)
 		(fields_autoplaced yes)
