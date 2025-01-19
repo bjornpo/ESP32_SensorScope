@@ -3,4 +3,5 @@
   (lib (name "digikey-footprints")(type "KiCad")(uri "${KIPRJMOD}/libraries/digikey/digikey-footprints.pretty")(options "")(descr ""))
   (lib (name "Espressif")(type "KiCad")(uri "${KIPRJMOD}/libraries/espressif/footprints/Espressif.pretty")(options "")(descr ""))
   (lib (name "espressif.3dshapes")(type "KiCad")(uri "${KIPRJMOD}/libraries/espressif/3dmodels/espressif.3dshapes")(options "")(descr ""))
+  (lib (name "My_library")(type "KiCad")(uri "${KIPRJMOD}/My_library.pretty")(options "")(descr ""))
 )
