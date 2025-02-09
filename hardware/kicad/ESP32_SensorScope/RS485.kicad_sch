@@ -2809,6 +2809,12 @@
 		)
 	)
 	(junction
+		(at 114.3 92.71)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "07794b66-0a2f-4ce8-a191-04414b28bbc9")
+	)
+	(junction
 		(at 142.24 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2882,16 +2888,6 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 90.17) (xy 106.68 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "13914909-1527-4253-8039-85a1379cc0d6")
-	)
-	(wire
-		(pts
 			(xy 137.16 85.09) (xy 137.16 82.55)
 		)
 		(stroke
@@ -2922,7 +2918,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 92.71) (xy 116.84 92.71)
+			(xy 96.52 92.71) (xy 114.3 92.71)
 		)
 		(stroke
 			(width 0)
@@ -3372,6 +3368,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 90.17) (xy 114.3 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ebed31a5-ca43-42bb-b1f2-469a2f0c7462")
+	)
+	(wire
+		(pts
 			(xy 137.16 82.55) (xy 142.24 82.55)
 		)
 		(stroke
@@ -3389,6 +3395,16 @@
 			(type default)
 		)
 		(uuid "ef82b2ca-9dc0-4d50-bede-2be140945e62")
+	)
+	(wire
+		(pts
+			(xy 114.3 92.71) (xy 116.84 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f28fe1ae-6084-40cb-aa65-49b85b1ad218")
 	)
 	(wire
 		(pts
@@ -3484,7 +3500,7 @@
 			)
 		)
 	)
-	(global_label "RS485_TX_nEN"
+	(global_label "RS485_EN"
 		(shape input)
 		(at 96.52 92.71 180)
 		(fields_autoplaced yes)
@@ -3496,7 +3512,7 @@
 		)
 		(uuid "27bd6e8c-0437-41e6-baa7-7b14b764273d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 79.686 92.71 0)
+			(at 83.9797 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3591,73 +3607,6 @@
 				)
 				(justify right)
 				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 110.49 90.17 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "029a620c-37e8-46b2-8edd-481b80ae71be")
-		(property "Reference" "R3"
-			(at 110.49 90.17 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10K"
-			(at 110.49 88.138 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 110.49 91.948 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 110.49 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 110.49 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7554dcd4-8b5e-4617-93c2-0bb108c7f9b3")
-		)
-		(pin "2"
-			(uuid "303699fb-4ecb-4564-8ae9-0c0757083319")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
-					(reference "R3")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -4025,73 +3974,6 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
 					(reference "#PWR087")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 105.41 90.17 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2823cc1a-16e5-4efd-9a57-013ca496a183")
-		(property "Reference" "#PWR05"
-			(at 99.06 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 101.6 90.1699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 105.41 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 105.41 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 105.41 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9bdaa0eb-aa10-47d3-809c-5cb2459a3417")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
-					(reference "#PWR05")
 					(unit 1)
 				)
 			)

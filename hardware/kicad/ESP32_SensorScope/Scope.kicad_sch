@@ -701,13 +701,13 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 93.98) (xy 135.89 93.98)
+			(xy 133.35 93.98) (xy 128.27 93.98)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "21557ab3-86b8-4d83-85a4-73aca7273227")
+		(uuid "19b73339-af9a-4ba1-be79-36dd3d7b78ea")
 	)
 	(wire
 		(pts
@@ -2001,17 +2001,6 @@
 		)
 		(uuid "e7828971-1c41-4161-9ada-12570bc86821")
 	)
-	(label "To ADC"
-		(at 135.89 93.98 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5f86aec2-4f97-46a8-9d23-d81b896f2087")
-	)
 	(label "Ain"
 		(at 81.28 93.98 180)
 		(fields_autoplaced yes)
@@ -2033,6 +2022,50 @@
 			(justify right bottom)
 		)
 		(uuid "e5b03608-33c8-41c8-8eff-1b321fcf30cc")
+	)
+	(global_label "Ch2_ADC"
+		(shape input)
+		(at 140.97 80.01 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "276340ce-a1e3-4eb3-9f33-53c1be91eb88")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 152.1799 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Ch1_ADC"
+		(shape input)
+		(at 133.35 93.98 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eda3aaf2-0857-46f4-ace7-390906f8fb0c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 144.5599 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:+3.3V")

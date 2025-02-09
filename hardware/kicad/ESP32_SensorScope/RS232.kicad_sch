@@ -1453,7 +1453,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 69.85) (xy 74.93 69.85)
+			(xy 80.01 73.66) (xy 71.12 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1493,7 +1493,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 68.58) (xy 88.9 68.58)
+			(xy 96.52 67.31) (xy 59.69 67.31)
 		)
 		(stroke
 			(width 0)
@@ -1523,7 +1523,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 80.01) (xy 96.52 68.58)
+			(xy 96.52 80.01) (xy 96.52 67.31)
 		)
 		(stroke
 			(width 0)
@@ -1823,7 +1823,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 69.85) (xy 80.01 87.63)
+			(xy 80.01 73.66) (xy 80.01 87.63)
 		)
 		(stroke
 			(width 0)
@@ -1843,7 +1843,7 @@
 	)
 	(global_label "TX"
 		(shape input)
-		(at 88.9 68.58 180)
+		(at 59.69 67.31 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1853,7 +1853,7 @@
 		)
 		(uuid "819a2a07-4ac7-4812-a3e2-746128347f7b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.7377 68.58 0)
+			(at 54.5277 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1909,7 +1909,7 @@
 	)
 	(global_label "RS232_RX_nEN"
 		(shape input)
-		(at 74.93 69.85 180)
+		(at 71.12 73.66 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1919,7 +1919,7 @@
 		)
 		(uuid "f0117d2d-9324-4b53-88ac-50d9e2e36b2f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 57.7936 69.85 0)
+			(at 53.9836 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
