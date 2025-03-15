@@ -5,6 +5,375 @@
 	(uuid "cdb6a3b4-8356-49ac-9a22-c4e53a8977bf")
 	(paper "A4")
 	(lib_symbols
+		(symbol "74xx:74HC4051"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -5.08 11.43 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "74HC4051"
+				(at -7.62 -13.97 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "8-channel analog multiplexer/demultiplexer, DIP-16/SOIC-16/TSSOP-16"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "HCMOS Multiplexer Demultiplexer Analog"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DIP*W7.62mm* SOIC*3.9x9.9mm*P1.27mm* SOIC*5.3x10.2mm*P1.27mm* TSSOP*4.4x5mm*P0.65mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "74HC4051_0_1"
+				(rectangle
+					(start -5.08 10.16)
+					(end 7.62 -12.7)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "74HC4051_1_1"
+				(pin passive line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name "A4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "S1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "S0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "A3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 7.62 180)
+					(length 2.54)
+					(name "A0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 5.08 180)
+					(length 2.54)
+					(name "A1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "A2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 12.7 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -7.62 180)
+					(length 2.54)
+					(name "A6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 7.62 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -10.16 180)
+					(length 2.54)
+					(name "A7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -5.08 180)
+					(length 2.54)
+					(name "A5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -7.62 0)
+					(length 2.54)
+					(name "~{E}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 2.54 -15.24 90)
+					(length 2.54)
+					(name "VEE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -15.24 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "S2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Conn_01x01_Socket"
 			(pin_names
 				(offset 1.016) hide)
@@ -2809,12 +3178,6 @@
 		)
 	)
 	(junction
-		(at 114.3 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "07794b66-0a2f-4ce8-a191-04414b28bbc9")
-	)
-	(junction
 		(at 142.24 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2918,7 +3281,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 92.71) (xy 114.3 92.71)
+			(xy 96.52 92.71) (xy 116.84 92.71)
 		)
 		(stroke
 			(width 0)
@@ -3028,7 +3391,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 97.79) (xy 116.84 97.79)
+			(xy 96.52 97.79) (xy 116.84 97.79)
 		)
 		(stroke
 			(width 0)
@@ -3095,6 +3458,16 @@
 			(type default)
 		)
 		(uuid "6acdd69e-a71d-4091-b8e0-8f0326ed313c")
+	)
+	(wire
+		(pts
+			(xy 105.41 85.09) (xy 101.6 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e451c43-14bd-4409-a5c0-b4fc67a48e75")
 	)
 	(wire
 		(pts
@@ -3368,13 +3741,13 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 90.17) (xy 114.3 92.71)
+			(xy 106.68 90.17) (xy 105.41 90.17)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ebed31a5-ca43-42bb-b1f2-469a2f0c7462")
+		(uuid "e9766221-c63c-47bc-9846-e3d63c8a7b47")
 	)
 	(wire
 		(pts
@@ -3398,13 +3771,13 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 92.71) (xy 116.84 92.71)
+			(xy 105.41 90.17) (xy 105.41 85.09)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f28fe1ae-6084-40cb-aa65-49b85b1ad218")
+		(uuid "ef92a6cb-29ef-44df-a3cb-f01b233a7b82")
 	)
 	(wire
 		(pts
@@ -3456,6 +3829,26 @@
 		)
 		(uuid "fcca88fb-51bc-40da-8d44-0a462bee8c54")
 	)
+	(text "tie RE to GND to enable collision detect"
+		(exclude_from_sim no)
+		(at 74.676 87.122 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "87ae9ae4-0b7e-49e8-afc3-937896922b11")
+	)
+	(text "3x Dout"
+		(exclude_from_sim no)
+		(at 273.812 162.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "d823c6be-e528-4f08-a5a9-a96bd748b4b4")
+	)
 	(global_label "RS485_Bias_EN"
 		(shape input)
 		(at 130.81 119.38 180)
@@ -3474,7 +3867,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -3496,29 +3888,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "RS485_EN"
-		(shape input)
-		(at 96.52 92.71 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "27bd6e8c-0437-41e6-baa7-7b14b764273d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.9797 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -3540,13 +3909,12 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
 			)
 		)
 	)
-	(global_label "RX"
+	(global_label "UART1_RTS"
 		(shape input)
-		(at 63.5 63.5 180)
+		(at 96.52 92.71 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3554,15 +3922,14 @@
 			)
 			(justify right)
 		)
-		(uuid "4f456bcd-1a23-4f69-908b-e7b8dad5c1d4")
+		(uuid "723e45e7-6cf4-4469-9334-3140042ac3cb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.0353 63.5 0)
+			(at 83.2539 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -3584,13 +3951,12 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
-	(global_label "TX"
+	(global_label "UART1_RX"
 		(shape input)
-		(at 111.76 97.79 180)
+		(at 63.5 63.5 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3598,15 +3964,35 @@
 			)
 			(justify right)
 		)
-		(uuid "f3ce3e81-1180-47c0-9cac-8df13de8f0fc")
+		(uuid "a641f123-b8cf-474a-af2e-752eb0caf9e0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.5977 97.79 0)
+			(at 51.2015 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
+			)
+		)
+	)
+	(global_label "UART1_TX"
+		(shape input)
+		(at 96.52 97.79 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e4aa6c70-c76b-4ea9-956a-74fae7447820")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 84.5239 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 	)
@@ -4200,6 +4586,73 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
 					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 110.49 90.17 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "457205b9-0d18-40d0-ad29-88bbedd815bf")
+		(property "Reference" "R67"
+			(at 110.49 90.17 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 110.49 88.138 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 91.948 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 110.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ff0955b8-1ec2-4656-b568-09d9e86a08bf")
+		)
+		(pin "2"
+			(uuid "e9939a49-7a5f-47bd-852a-07fc7542a246")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
+					(reference "R67")
 					(unit 1)
 				)
 			)
@@ -5144,6 +5597,118 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
 					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC4051")
+		(at 25.4 107.95 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "87a6ddaf-b04c-45f6-b56c-def4aa8a3070")
+		(property "Reference" "U24"
+			(at 27.5941 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC4051"
+			(at 27.5941 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 25.4 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf"
+			(at 25.4 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "8-channel analog multiplexer/demultiplexer, DIP-16/SOIC-16/TSSOP-16"
+			(at 25.4 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "11"
+			(uuid "206c5fca-d844-4142-b5b8-7cfd4c2472f8")
+		)
+		(pin "8"
+			(uuid "878572f5-7a93-4542-b338-ef567a4d0e8b")
+		)
+		(pin "1"
+			(uuid "d8a23cc2-e4f3-4e73-a264-9abfed53142e")
+		)
+		(pin "7"
+			(uuid "64f1ecb8-004e-4197-acb9-114e821f3eb5")
+		)
+		(pin "15"
+			(uuid "7e0d964e-e79e-49a3-80f8-b4dcda8eeb52")
+		)
+		(pin "2"
+			(uuid "4162c340-b05c-476c-9492-f4e599d4b52f")
+		)
+		(pin "13"
+			(uuid "d58f2ada-76e4-4e92-80e4-d9186d7e3ebe")
+		)
+		(pin "4"
+			(uuid "a1d5ac0b-bceb-426a-b3d0-176c0d3bdbd0")
+		)
+		(pin "5"
+			(uuid "2833837b-0a9a-4d46-b066-798ad9aebbee")
+		)
+		(pin "10"
+			(uuid "90811bef-0aed-48c7-8913-a3f364f4cf59")
+		)
+		(pin "6"
+			(uuid "888920e6-a799-498d-a080-db28e5c6a038")
+		)
+		(pin "9"
+			(uuid "0f6f1545-e069-45ea-aaf3-b99cb0c2f830")
+		)
+		(pin "3"
+			(uuid "34fb3810-6522-492e-98b4-40956192a766")
+		)
+		(pin "12"
+			(uuid "dc575953-be36-4e1a-b521-e43f929d0a44")
+		)
+		(pin "16"
+			(uuid "c01cb656-09bb-433b-8fa0-419d1f467787")
+		)
+		(pin "14"
+			(uuid "8e7c4f55-8b26-40c2-b554-32bca68520bd")
+		)
+		(instances
+			(project ""
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
+					(reference "U24")
 					(unit 1)
 				)
 			)
@@ -6178,6 +6743,72 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
 					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 101.6 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ff6cc10d-1bd6-4733-8116-2cd1178d7072")
+		(property "Reference" "#PWR0128"
+			(at 101.6 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 101.6 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 101.6 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "25854258-41c3-45c6-8df3-e0ef2a33cf90")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/023aa14c-98ee-4b74-98c6-de8e26121a9a"
+					(reference "#PWR0128")
 					(unit 1)
 				)
 			)

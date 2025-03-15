@@ -5,15 +5,15 @@
 	(uuid "435a935f-b0bd-4f5f-a5d9-873f6aa81b06")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Amplifier_Operational:OPA333xxDBV"
+		(symbol "Analog_DAC:MCP4728"
 			(pin_names
-				(offset 0.127)
+				(offset 1.016)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at -1.27 6.35 0)
+				(at -12.7 6.35 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -21,27 +21,17 @@
 					(justify left)
 				)
 			)
-			(property "Value" "OPA333xxDBV"
-				(at -1.27 3.81 0)
+			(property "Value" "MCP4728"
+				(at 12.7 6.35 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
+					(justify right)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-				(at -2.54 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa333.pdf"
-				(at 0 5.08 0)
+			(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
+				(at 0 -15.24 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -49,7 +39,16 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Single 1.8V, microPower, CMOS Operational Amplifiers, Zero-Drift Series, SOT-23-5"
+			(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf"
+				(at 0 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "12-bit digital to analog converter, quad output, 2.048V internal reference, integrated EEPROM, I2C interface"
 				(at 0 0 0)
 				(effects
 					(font
@@ -58,7 +57,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "single opamp"
+			(property "ki_keywords" "dac i2c"
 				(at 0 0 0)
 				(effects
 					(font
@@ -67,7 +66,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "SOT?23*"
+			(property "ki_fp_filters" "*SOP*3x3mm*P0.5mm*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -76,11 +75,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "OPA333xxDBV_0_1"
-				(polyline
-					(pts
-						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
-					)
+			(symbol "MCP4728_0_1"
+				(rectangle
+					(start -12.7 5.08)
+					(end 12.7 -7.62)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -89,48 +87,12 @@
 						(type background)
 					)
 				)
-				(pin power_in line
-					(at -2.54 -7.62 90)
-					(length 3.81)
-					(name "V-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -2.54 7.62 270)
-					(length 3.81)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
-			(symbol "OPA333xxDBV_1_1"
-				(pin output line
-					(at 7.62 0 180)
+			(symbol "MCP4728_1_1"
+				(pin power_in line
+					(at 0 7.62 270)
 					(length 2.54)
-					(name "~"
+					(name "VDD"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -145,10 +107,46 @@
 						)
 					)
 				)
-				(pin input line
-					(at -7.62 2.54 0)
+				(pin power_in line
+					(at 0 -10.16 90)
 					(length 2.54)
-					(name "+"
+					(name "VSS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 2.54 0)
+					(length 2.54)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -15.24 0 0)
+					(length 2.54)
+					(name "SDA"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -164,9 +162,9 @@
 					)
 				)
 				(pin input line
-					(at -7.62 -2.54 0)
+					(at -15.24 -2.54 0)
 					(length 2.54)
-					(name "-"
+					(name "~{LDAC}"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -174,6 +172,96 @@
 						)
 					)
 					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -15.24 -5.08 0)
+					(length 2.54)
+					(name "RDY/~{BSY}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 2.54 180)
+					(length 2.54)
+					(name "VOUTA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 0 180)
+					(length 2.54)
+					(name "VOUTB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 -2.54 180)
+					(length 2.54)
+					(name "VOUTC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 -5.08 180)
+					(length 2.54)
+					(name "VOUTD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1012,6 +1100,202 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "My_library:OPA991S"
+			(pin_names
+				(offset 0.127)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 3.81 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "OPA991S"
+				(at 3.81 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+				(at 3.81 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+				(at 3.81 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "4.5-MHz, rail-to-rail, 40-V 4.5-MHz low-power operational amplifier with shutdown, SOT-23-6"
+				(at 0.254 18.796 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "operational amplifier opamp shutdown high-speed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "OPA991S_0_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "OPA991S_1_1"
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 3.81)
+					(name "V-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -7.62 90)
+					(length 5.08)
+					(name "ENABLE"
+						(effects
+							(font
+								(size 0.762 0.762)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 7.62 270)
+					(length 3.81)
+					(name "V+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2979,6 +3263,12 @@
 		)
 	)
 	(junction
+		(at 121.92 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0571de05-a7c3-4155-abcc-d64fd7f27241")
+	)
+	(junction
 		(at 165.1 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2989,12 +3279,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "15c5ffa8-e81d-4df9-83dd-8e9ac09f007f")
-	)
-	(junction
-		(at 165.1 179.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1ab05954-c06a-4fc4-91bb-0d08d37b6009")
 	)
 	(junction
 		(at 129.54 57.15)
@@ -3057,12 +3341,6 @@
 		(uuid "63c25624-6de0-4fc6-9018-5450296ca492")
 	)
 	(junction
-		(at 121.92 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "67d32bb0-f35d-486d-b835-c2d9ee35b100")
-	)
-	(junction
 		(at 72.39 27.94)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3075,16 +3353,40 @@
 		(uuid "73674475-2476-425f-ad3e-7dd6b415f563")
 	)
 	(junction
+		(at 102.87 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8163c7ad-de50-4da7-b428-89c4245ef822")
+	)
+	(junction
 		(at 134.62 101.6)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "89a561f7-baee-4d7e-b354-eee3316658ff")
 	)
 	(junction
+		(at 101.6 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "909bdb14-7321-4508-b6b3-a4a8630c0984")
+	)
+	(junction
 		(at 49.53 45.72)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "91017254-ed62-4752-9ef2-ef3af00921ce")
+	)
+	(junction
+		(at 165.1 179.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "920146d6-2c40-4c94-a7d5-4bd4bb502f75")
+	)
+	(junction
+		(at 114.3 120.65)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9982f820-f5e5-43f0-8fbc-babe50b9aa5e")
 	)
 	(junction
 		(at 165.1 170.18)
@@ -3158,6 +3460,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 120.65) (xy 133.35 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "053c9697-8292-49fc-be7a-f3ceebfde7dc")
+	)
+	(wire
+		(pts
 			(xy 125.73 57.15) (xy 129.54 57.15)
 		)
 		(stroke
@@ -3198,6 +3510,16 @@
 	)
 	(wire
 		(pts
+			(xy 29.21 113.03) (xy 30.48 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09dff913-f1e1-456c-af79-e5d42dabadae")
+	)
+	(wire
+		(pts
 			(xy 113.03 144.78) (xy 113.03 146.05)
 		)
 		(stroke
@@ -3225,6 +3547,16 @@
 			(type default)
 		)
 		(uuid "0a90e09f-1ee3-4ac5-8324-4edceefae9c4")
+	)
+	(wire
+		(pts
+			(xy 115.57 161.29) (xy 115.57 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b0e58f0-0046-4d65-bc53-d4e9339a476d")
 	)
 	(wire
 		(pts
@@ -3278,6 +3610,26 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 64.77) (xy 118.11 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c09119d-286f-4d8c-9360-c6acce60a07d")
+	)
+	(wire
+		(pts
+			(xy 99.06 74.93) (xy 102.87 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f8ad90d-a14d-48d6-8014-79ce04fd9e40")
+	)
+	(wire
+		(pts
 			(xy 100.33 104.14) (xy 100.33 113.03)
 		)
 		(stroke
@@ -3328,7 +3680,7 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 43.18) (xy 33.02 43.18)
+			(xy 31.75 43.18) (xy 33.02 43.18)
 		)
 		(stroke
 			(width 0)
@@ -3458,6 +3810,26 @@
 	)
 	(wire
 		(pts
+			(xy 115.57 125.73) (xy 114.3 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b689ab6-0baa-48ba-b1ec-81ac3e4c19c6")
+	)
+	(wire
+		(pts
+			(xy 114.3 109.22) (xy 114.3 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50d95bed-dffa-4f5a-aa70-d9874759ef05")
+	)
+	(wire
+		(pts
 			(xy 153.67 57.15) (xy 157.48 57.15)
 		)
 		(stroke
@@ -3518,6 +3890,16 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 118.11) (xy 64.77 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63b80e00-8f5c-4f40-bfb1-1fc5f2d2192a")
+	)
+	(wire
+		(pts
 			(xy 133.35 186.69) (xy 133.35 189.23)
 		)
 		(stroke
@@ -3525,6 +3907,16 @@
 			(type default)
 		)
 		(uuid "657041e2-08e3-4ef9-8a25-0660e5f3f13c")
+	)
+	(wire
+		(pts
+			(xy 29.21 115.57) (xy 30.48 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65a5df5e-4f05-4fc9-820d-baaa6625610d")
 	)
 	(wire
 		(pts
@@ -3538,7 +3930,17 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 151.13) (xy 107.95 151.13)
+			(xy 101.6 171.45) (xy 115.57 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68e088af-314d-40a1-a15d-666f91a22b24")
+	)
+	(wire
+		(pts
+			(xy 101.6 151.13) (xy 107.95 151.13)
 		)
 		(stroke
 			(width 0)
@@ -3558,6 +3960,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 170.18) (xy 101.6 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e93fb93-1174-4337-bf76-bc6a83f118d3")
+	)
+	(wire
+		(pts
 			(xy 72.39 39.37) (xy 85.09 39.37)
 		)
 		(stroke
@@ -3565,6 +3977,26 @@
 			(type default)
 		)
 		(uuid "6fc8aea0-0a68-4b79-b3ad-3827f1dd10b1")
+	)
+	(wire
+		(pts
+			(xy 154.94 119.38) (xy 154.94 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71dc7d4f-f72a-4a06-991b-c1f6812b4760")
+	)
+	(wire
+		(pts
+			(xy 45.72 106.68) (xy 45.72 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "764ab09c-bd5c-4467-af10-cf23b2299aec")
 	)
 	(wire
 		(pts
@@ -3598,6 +4030,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 74.93) (xy 118.11 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89debe72-e258-42d9-b4bc-fe8365e766ad")
+	)
+	(wire
+		(pts
 			(xy 172.72 91.44) (xy 172.72 92.71)
 		)
 		(stroke
@@ -3625,6 +4067,16 @@
 			(type default)
 		)
 		(uuid "93641746-12e4-41ce-809b-45979face585")
+	)
+	(wire
+		(pts
+			(xy 114.3 125.73) (xy 114.3 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94036752-291f-4382-83f9-d0304e6a6155")
 	)
 	(wire
 		(pts
@@ -3658,6 +4110,36 @@
 	)
 	(wire
 		(pts
+			(xy 97.79 171.45) (xy 101.6 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9714c634-64f8-4cbd-8e30-d520d1ae723c")
+	)
+	(wire
+		(pts
+			(xy 60.96 115.57) (xy 64.77 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ad78ef1-f8fb-4e43-a0b8-57c292fd4d28")
+	)
+	(wire
+		(pts
+			(xy 140.97 120.65) (xy 146.05 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d8b740f-4436-414d-a936-4cb08f5cd591")
+	)
+	(wire
+		(pts
 			(xy 123.19 113.03) (xy 134.62 113.03)
 		)
 		(stroke
@@ -3665,6 +4147,16 @@
 			(type default)
 		)
 		(uuid "9eacfc99-d4c4-4fc0-bfa6-37e033448b70")
+	)
+	(wire
+		(pts
+			(xy 154.94 120.65) (xy 151.13 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a14bdabe-1612-42f3-8408-9848342a1e0b")
 	)
 	(wire
 		(pts
@@ -3738,6 +4230,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 120.65) (xy 151.13 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abac3d49-1406-4ca0-84e0-c109f9196d40")
+	)
+	(wire
+		(pts
 			(xy 106.68 38.1) (xy 129.54 38.1)
 		)
 		(stroke
@@ -3765,6 +4267,16 @@
 			(type default)
 		)
 		(uuid "b41344cb-a977-4ab7-b18c-2231d0d53261")
+	)
+	(wire
+		(pts
+			(xy 60.96 113.03) (xy 64.77 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b51fbd89-30a6-4d11-b62c-173ef98705b4")
 	)
 	(wire
 		(pts
@@ -3855,6 +4367,16 @@
 			(type default)
 		)
 		(uuid "c3144efb-6f1a-46b1-b47d-9308a184fa92")
+	)
+	(wire
+		(pts
+			(xy 146.05 120.65) (xy 146.05 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c343525f-1cfb-4228-97a5-b5ebf1695425")
 	)
 	(wire
 		(pts
@@ -4136,6 +4658,36 @@
 		)
 		(uuid "fbd2071d-b958-46d3-ba3e-454a3390d4c4")
 	)
+	(wire
+		(pts
+			(xy 102.87 73.66) (xy 102.87 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fe20e42a-fbf4-4b18-a4e5-1fce9a1d554c")
+	)
+	(wire
+		(pts
+			(xy 45.72 125.73) (xy 45.72 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fee6f5c7-1183-4591-8ff8-53f6555098cd")
+	)
+	(wire
+		(pts
+			(xy 60.96 120.65) (xy 64.77 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffbf6eea-d7a2-4c75-acbd-670fe4ac1165")
+	)
 	(text "OP-amps with shutdown\nOPA991 40V rail to rail, 75mA output, 125uV offset, 4.5MHz\nOPA990 40V rail to rail, 80mA output, 300uV offset, 1.1MHz\nTLV237x 16V 						2000uV"
 		(exclude_from_sim no)
 		(at 221.996 112.014 0)
@@ -4146,30 +4698,29 @@
 		)
 		(uuid "7d3e00f0-7416-4216-a97f-38d63139cba0")
 	)
-	(label "Vref"
-		(at 24.13 43.18 180)
-		(fields_autoplaced yes)
+	(text "3x Dout\n2x Din"
+		(exclude_from_sim no)
+		(at 275.336 161.036 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
 		)
-		(uuid "1be1b235-713d-44a7-a89a-5da864da7935")
+		(uuid "7e86a29f-6650-43b0-8346-872c9cf64668")
 	)
-	(label "Vref"
-		(at 99.06 99.06 180)
+	(label "4-20mA Sink ref"
+		(at 64.77 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "69b0d83f-4b4f-499f-8f2b-25a8f6a7a8d9")
+		(uuid "015c0656-055c-4fe5-bb8e-7b0dd5d313ad")
 	)
-	(label "Vref"
-		(at 95.25 151.13 180)
+	(label "4-20mA Sink ref"
+		(at 101.6 151.13 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4177,7 +4728,29 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "7658e675-b556-45e4-9e45-74a22f1eb106")
+		(uuid "20abeefc-261f-4761-a57e-d235b9d0a63d")
+	)
+	(label "0-10V_nEN"
+		(at 115.57 125.73 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4bd89f2d-ead9-4900-83ac-488082fa128f")
+	)
+	(label "0-10V Source ref"
+		(at 64.77 118.11 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5c948855-f165-46c2-aae1-774e3d6141df")
 	)
 	(label "Lowside_open"
 		(at 193.04 143.51 0)
@@ -4190,6 +4763,17 @@
 		)
 		(uuid "7a6c427b-6ddf-4c47-94fa-73a05b829a17")
 	)
+	(label "4-20mA Source ref"
+		(at 31.75 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8cd6c971-6c0f-4aa6-b1e6-99914fdf1648")
+	)
 	(label "Highside_Open"
 		(at 196.85 57.15 0)
 		(fields_autoplaced yes)
@@ -4200,6 +4784,112 @@
 			(justify left bottom)
 		)
 		(uuid "8f8357f1-5ad1-4ccd-aa6f-5f3ee557c473")
+	)
+	(label "0-10V Source ref"
+		(at 99.06 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "962dfba4-e8e0-4df0-bcbf-edf2187f28c5")
+	)
+	(label "4-20mA Source ref"
+		(at 64.77 113.03 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c1cf8f57-7298-411d-ab90-9473d8b22820")
+	)
+	(global_label "I2C_SCL"
+		(shape input)
+		(at 29.21 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "08307663-9145-47d2-b546-75c82dd988ba")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 18.6653 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "mA_source_EN"
+		(shape input)
+		(at 99.06 74.93 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "210fcab2-4a29-4be9-bdcc-f208f3b21ae4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.5887 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "Scope_offset"
+		(shape input)
+		(at 64.77 120.65 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "77e1f771-4683-4714-bbc9-9a40560281e7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 79.8503 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "mA_sink_EN"
+		(shape input)
+		(at 97.79 171.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a93d879b-dce1-4d89-998a-9db618924bee")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 83.7982 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
 	)
 	(global_label "mA_ADC"
 		(shape input)
@@ -4219,7 +4909,27 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape input)
+		(at 29.21 115.57 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e6fb7113-31f0-4ab7-b463-5861ae14be6b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 18.6048 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 	)
@@ -4241,7 +4951,74 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 137.16 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "040f6ce8-e18b-4033-bfa8-4ddc18552628")
+		(property "Reference" "R3"
+			(at 137.16 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 137.16 118.11 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 122.428 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 137.16 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 137.16 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3c953102-8074-4e4e-a207-0627c6fd1853")
+		)
+		(pin "2"
+			(uuid "e2c80957-238d-4e9a-bfa9-e9adf639f16a")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "R3")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -4430,7 +5207,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "49R9"
 			(at 167.64 34.2899 0)
 			(effects
 				(font
@@ -4439,7 +5216,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 166.878 33.02 90)
 			(effects
 				(font
@@ -4448,7 +5225,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.lcsc.com/product-detail/Chip-Resistor-Surface-Mount_YAGEO-RT1206BRB0749R9L_C869759.html"
 			(at 165.1 33.02 0)
 			(effects
 				(font
@@ -4457,7 +5234,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RT1206BRB0749R9L"
 			(at 165.1 33.02 0)
 			(effects
 				(font
@@ -5026,6 +5803,86 @@
 		)
 	)
 	(symbol
+		(lib_id "My_library:OPA991S")
+		(at 40.64 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "26d3396e-8a55-4cf5-b587-32e4198ea029")
+		(property "Reference" "U19"
+			(at 45.466 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "OPA991S"
+			(at 46.99 41.656 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 44.45 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+			(at 44.45 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4.5-MHz, rail-to-rail, 40-V 4.5-MHz low-power operational amplifier with shutdown, SOT-23-6"
+			(at 40.894 26.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c92d2e18-e986-43f1-b530-9c3f897a8125")
+		)
+		(pin "2"
+			(uuid "b6702c77-fc57-471e-ab14-1ff9970d2192")
+		)
+		(pin "6"
+			(uuid "f5f04226-4f4c-4522-b74f-67554dc73c34")
+		)
+		(pin "4"
+			(uuid "e89bbc21-920b-4a7a-9314-1c77bc07cee5")
+		)
+		(pin "3"
+			(uuid "106bb3df-b5eb-4683-bc4a-6262dcc8e1c1")
+		)
+		(pin "5"
+			(uuid "47a83c49-f9fd-4805-b3e2-d019f39b7fed")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "U19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 143.51 170.18 90)
 		(unit 1)
@@ -5429,35 +6286,34 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 165.1 182.88 180)
+		(lib_id "power:+5V")
+		(at 154.94 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3d71d6d8-46e8-4866-96c5-ba6fb75473bb")
-		(property "Reference" "R50"
-			(at 167.64 181.6099 0)
+		(uuid "46febca7-6d7d-4f31-9df3-6c86921232b2")
+		(property "Reference" "#PWR05"
+			(at 154.94 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(hide yes)
 			)
 		)
-		(property "Value" "R"
-			(at 167.64 184.1499 0)
+		(property "Value" "+5V"
+			(at 154.94 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
-			(at 166.878 182.88 90)
+			(at 154.94 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5465,8 +6321,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 165.1 182.88 0)
+		(property "Datasheet" ""
+			(at 154.94 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5474,8 +6330,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 165.1 182.88 0)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 154.94 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5484,15 +6340,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "20718abf-ba26-4c3f-80b6-e959ef92e614")
-		)
-		(pin "2"
-			(uuid "5e2fc698-b0ed-44fd-aa28-74e7f958836e")
+			(uuid "9d9fc657-5883-4618-a8e3-d8b49d1ea029")
 		)
 		(instances
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
-					(reference "R50")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -5696,6 +6549,73 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
 					(reference "#PWR0111")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 102.87 69.85 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5d4be0de-bb81-4f7b-bb7a-38b1d26a0ab6")
+		(property "Reference" "R12"
+			(at 98.806 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 100.584 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.648 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.87 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 102.87 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0172f061-c91e-47c3-b05b-78a982a43374")
+		)
+		(pin "2"
+			(uuid "6c60c549-b36f-4906-9ae5-98b0003e3ced")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -6183,83 +7103,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:OPA333xxDBV")
-		(at 40.64 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6ed17c3c-167b-46fe-9791-1223b10d95ea")
-		(property "Reference" "U19"
-			(at 42.926 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "OPA333xxDBV"
-			(at 47.498 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 38.1 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa333.pdf"
-			(at 40.64 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Single 1.8V, microPower, CMOS Operational Amplifiers, Zero-Drift Series, SOT-23-5"
-			(at 40.64 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9804a257-887f-4d1a-9f64-c79396a2ab46")
-		)
-		(pin "1"
-			(uuid "b37c9f71-cb71-4ee7-b3a5-bc2a775f9dbd")
-		)
-		(pin "3"
-			(uuid "994ac9c9-bc16-4287-99a6-41aacb418bed")
-		)
-		(pin "4"
-			(uuid "47e69dfd-e356-4462-80f4-db546fc8932b")
-		)
-		(pin "5"
-			(uuid "ce49a9b3-cddc-407c-a1bf-a503b8c41c7b")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
-					(reference "U19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 193.04 49.53 0)
 		(unit 1)
@@ -6398,83 +7241,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:OPA333xxDBV")
-		(at 114.3 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7314c405-fe7e-43fa-9f1a-a4a7bedbe958")
-		(property "Reference" "U21"
-			(at 116.586 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "OPA333xxDBV"
-			(at 121.158 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 111.76 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa333.pdf"
-			(at 114.3 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Single 1.8V, microPower, CMOS Operational Amplifiers, Zero-Drift Series, SOT-23-5"
-			(at 114.3 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "d89edea3-c1a4-4df6-968e-cd741bee57b2")
-		)
-		(pin "1"
-			(uuid "bf1cb017-9220-4e02-b1a7-4776ff82fc62")
-		)
-		(pin "3"
-			(uuid "8a703070-1e7d-45f7-997e-7ff74dd44abc")
-		)
-		(pin "4"
-			(uuid "1c38f9de-05d4-48f0-babe-8d22349309eb")
-		)
-		(pin "5"
-			(uuid "439a0571-6555-460b-af67-cf8777cb30cd")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
-					(reference "U21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 113.03 162.56 0)
 		(unit 1)
@@ -6605,6 +7371,142 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
 					(reference "R61")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 31.75 86.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c0a3795-b6cd-4a48-94e8-7d99ebe8879b")
+		(property "Reference" "#PWR0119"
+			(at 31.75 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 31.75 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 31.75 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 31.75 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 31.75 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "06b1fcb2-c43e-4533-a584-2a0df71a4668")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "#PWR0119")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 31.75 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7e7fbc5d-9c5f-44a1-bc9e-8f16bf84c155")
+		(property "Reference" "C32"
+			(at 35.56 88.8999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 35.56 91.4399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 32.7152 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 31.75 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "413902ba-5c0b-490f-a5ea-f3cbe50053d8")
+		)
+		(pin "1"
+			(uuid "3d32ffb3-9be0-467d-925c-198ab6d4876a")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "C32")
 					(unit 1)
 				)
 			)
@@ -6874,6 +7776,76 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
 					(reference "R56")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 165.1 182.88 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "93858314-9cbb-4708-90d7-2d12519c2aef")
+		(property "Reference" "R50"
+			(at 167.64 181.6099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "49R9"
+			(at 167.64 184.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 166.878 182.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/Chip-Resistor-Surface-Mount_YAGEO-RT1206BRB0749R9L_C869759.html"
+			(at 165.1 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "RT1206BRB0749R9L"
+			(at 165.1 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "51e5cd58-52e1-45ce-8f18-db3efc974f9c")
+		)
+		(pin "2"
+			(uuid "222e2374-b433-4577-80ee-bc490646d498")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "R50")
 					(unit 1)
 				)
 			)
@@ -7184,6 +8156,141 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 101.6 162.56 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a78f88a1-b612-4dec-81c4-2de4f453ae89")
+		(property "Reference" "#PWR0127"
+			(at 101.6 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 101.6 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 101.6 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a8ac06ea-a094-4f9b-b16b-fd80e0717a7f")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "#PWR0127")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 166.37 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a9b1db33-07ac-4bb7-b197-9ba612be8541")
+		(property "Reference" "R16"
+			(at 97.536 166.37 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 99.314 166.37 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 103.378 166.37 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.6 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 101.6 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3b14140a-d87b-4cb3-a65f-4aed59d45867")
+		)
+		(pin "2"
+			(uuid "23668c59-d407-4264-b5c9-955681794f94")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Simulation_SPICE:PNP")
 		(at 185.42 137.16 0)
 		(mirror x)
@@ -7278,6 +8385,246 @@
 			(project ""
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
 					(reference "Q9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Analog_DAC:MCP4728")
+		(at 45.72 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b28c6ec8-0bda-4080-88a5-801df815807f")
+		(property "Reference" "U21"
+			(at 47.9141 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MCP4728"
+			(at 47.9141 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
+			(at 45.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf"
+			(at 45.72 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "12-bit digital to analog converter, quad output, 2.048V internal reference, integrated EEPROM, I2C interface"
+			(at 45.72 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7fe64127-4221-4a7b-a556-b5e2843a1a5c")
+		)
+		(pin "4"
+			(uuid "4189288f-d212-4c40-b3c5-7ff67ca2e34d")
+		)
+		(pin "7"
+			(uuid "d1d17c36-8e73-42b5-98fb-1da11b2de9a9")
+		)
+		(pin "3"
+			(uuid "1e7cebc8-a3dc-4fce-86de-1c692eafa518")
+		)
+		(pin "2"
+			(uuid "85fb6d23-e652-4117-af0f-fea3afa6019a")
+		)
+		(pin "9"
+			(uuid "e0335516-a987-4a5a-817c-bc6db165774f")
+		)
+		(pin "6"
+			(uuid "b488187b-6fc0-4d47-aa65-1364a8fae687")
+		)
+		(pin "10"
+			(uuid "8db046f6-40d0-4051-9af7-fd9972a463cc")
+		)
+		(pin "8"
+			(uuid "3b948799-a4f6-4103-8460-50d6bc35cc07")
+		)
+		(pin "5"
+			(uuid "7790db0f-de68-4570-a7e5-7991ef59533c")
+		)
+		(instances
+			(project ""
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "U21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 45.72 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b5ba4918-2693-46ea-b5b5-3fde8132677c")
+		(property "Reference" "#PWR0118"
+			(at 45.72 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 45.72 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 45.72 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b65983c0-2ff5-4618-857f-49c9b3299887")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "#PWR0118")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My_library:OPA991S")
+		(at 118.11 57.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b9b3bfc4-1543-4652-b3a0-e0aa1e1e0328")
+		(property "Reference" "U23"
+			(at 120.142 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "OPA991S"
+			(at 122.682 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 121.92 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+			(at 121.92 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4.5-MHz, rail-to-rail, 40-V 4.5-MHz low-power operational amplifier with shutdown, SOT-23-6"
+			(at 118.364 38.354 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2e02bca2-c661-496c-b5dd-401d4231abd2")
+		)
+		(pin "2"
+			(uuid "44157b08-edc1-4edc-a3b3-c930d1aa9a68")
+		)
+		(pin "6"
+			(uuid "a14163f2-d784-49f2-8b98-2eaf77358fa2")
+		)
+		(pin "4"
+			(uuid "15c06a13-f523-4c9d-b46b-888289604a20")
+		)
+		(pin "3"
+			(uuid "064a5eb5-6b7e-4aa1-854c-8332afc391c6")
+		)
+		(pin "5"
+			(uuid "6739a0aa-53a5-4b9b-ae4d-fdebe3d54fa4")
+		)
+		(instances
+			(project ""
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "U23")
 					(unit 1)
 				)
 			)
@@ -7520,42 +8867,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:OPA333xxDBV")
-		(at 115.57 153.67 0)
+		(lib_id "power:+5V")
+		(at 102.87 66.04 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "c3a0078e-cf40-44ef-aae3-7258c4fb13a6")
-		(property "Reference" "U20"
-			(at 117.856 147.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "OPA333xxDBV"
-			(at 122.428 149.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 113.03 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa333.pdf"
-			(at 115.57 148.59 0)
+		(fields_autoplaced yes)
+		(uuid "c74dc9b9-675d-4e7f-a73c-0c0491db6e85")
+		(property "Reference" "#PWR020"
+			(at 102.87 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7563,8 +8885,16 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Single 1.8V, microPower, CMOS Operational Amplifiers, Zero-Drift Series, SOT-23-5"
-			(at 115.57 153.67 0)
+		(property "Value" "+5V"
+			(at 102.87 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7572,25 +8902,31 @@
 				(hide yes)
 			)
 		)
-		(pin "2"
-			(uuid "a39dead7-eda7-4139-851d-79226e45b0a8")
+		(property "Datasheet" ""
+			(at 102.87 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 102.87 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "1"
-			(uuid "3808c471-63ba-4c64-a165-5eef202e514f")
-		)
-		(pin "3"
-			(uuid "7b083c17-52e8-4bfc-afec-fc5bec2b4986")
-		)
-		(pin "4"
-			(uuid "aad30b6e-dd47-4a35-b7e6-6954b0a154dd")
-		)
-		(pin "5"
-			(uuid "857a8ab0-5fec-447d-a9d4-8092a8a412e9")
+			(uuid "8e0bf0f7-f694-4c9a-824d-85f75d4e875b")
 		)
 		(instances
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
-					(reference "U20")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -7659,6 +8995,71 @@
 			(project ""
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
 					(reference "D15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 45.72 127 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d0154d2b-ea0b-4989-8bf0-937326ba9997")
+		(property "Reference" "#PWR0117"
+			(at 45.72 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 45.72 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 45.72 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bf891bdc-2080-4b6d-a844-9c71d2823428")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "#PWR0117")
 					(unit 1)
 				)
 			)
@@ -8004,6 +9405,86 @@
 		)
 	)
 	(symbol
+		(lib_id "My_library:OPA991S")
+		(at 114.3 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e196ee2a-fb45-43b2-8f0e-8ad91e7ecf22")
+		(property "Reference" "U20"
+			(at 116.078 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "OPA991S"
+			(at 116.84 95.758 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 118.11 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+			(at 118.11 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4.5-MHz, rail-to-rail, 40-V 4.5-MHz low-power operational amplifier with shutdown, SOT-23-6"
+			(at 114.554 82.804 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cf9c481f-d22a-461f-a302-1560dd1b95a9")
+		)
+		(pin "2"
+			(uuid "d34e3669-72ec-4194-9b3d-19cac410058a")
+		)
+		(pin "6"
+			(uuid "99db9404-c2d5-4f4a-9343-7967fd45d07e")
+		)
+		(pin "4"
+			(uuid "847a2854-a56a-4895-a94d-836300a9623f")
+		)
+		(pin "3"
+			(uuid "0cab077d-8424-4432-88f2-3a4c14efc52e")
+		)
+		(pin "5"
+			(uuid "06a0a277-17c7-494b-8445-31468d0f45a3")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "U20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 133.35 161.29 0)
 		(unit 1)
@@ -8070,32 +9551,99 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:OPA333xxDBV")
-		(at 118.11 57.15 0)
+		(lib_id "power:GND")
+		(at 31.75 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f095a9b0-46db-4560-b951-a72859b4066d")
+		(fields_autoplaced yes)
+		(uuid "edb5efa0-10be-47fc-82d7-41fe05e271e9")
+		(property "Reference" "#PWR0120"
+			(at 31.75 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 31.75 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 31.75 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 31.75 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 31.75 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "faec70da-4939-4744-a09c-99db1a0d7b43")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/3cb0be15-805c-46de-90ed-7dfb59d4fcea"
+					(reference "#PWR0120")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My_library:OPA991S")
+		(at 115.57 153.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f0cdb79c-9910-4334-8aa7-3b20925e15c2")
 		(property "Reference" "U18"
-			(at 120.396 50.8 0)
+			(at 127 147.3514 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "OPA333xxDBV"
-			(at 124.968 53.34 0)
+		(property "Value" "OPA991S"
+			(at 127 149.8914 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 115.57 62.23 0)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 119.38 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8104,8 +9652,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa333.pdf"
-			(at 118.11 52.07 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+			(at 119.38 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8113,29 +9661,32 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Single 1.8V, microPower, CMOS Operational Amplifiers, Zero-Drift Series, SOT-23-5"
-			(at 118.11 57.15 0)
+		(property "Description" "4.5-MHz, rail-to-rail, 40-V 4.5-MHz low-power operational amplifier with shutdown, SOT-23-6"
+			(at 115.824 134.874 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "2"
-			(uuid "9d908e05-d50a-4df7-ab17-888d7b4e681b")
 		)
 		(pin "1"
-			(uuid "a273d8b8-93a7-4011-b516-1d18190cf3c2")
+			(uuid "117bf947-a1c3-4156-b13f-3da290598a44")
 		)
-		(pin "3"
-			(uuid "811095b6-d21f-462d-9ce1-8e9ae507db5a")
+		(pin "2"
+			(uuid "fb567bff-f2a4-47ed-9913-eab82fbb67b4")
+		)
+		(pin "6"
+			(uuid "998a5aee-72d9-45c3-9a46-143601ead4ea")
 		)
 		(pin "4"
-			(uuid "dc046540-4333-4e98-a13e-d376d4cf70a8")
+			(uuid "e788e545-fd27-4384-bed0-d773eaa8d807")
+		)
+		(pin "3"
+			(uuid "624c1585-b343-4fc0-9287-f07ab95c57f6")
 		)
 		(pin "5"
-			(uuid "69f4ecd2-f1d3-4e06-8e53-f03ed42f6f68")
+			(uuid "413d43b3-1730-4f94-8e1e-4ed2b08f8a4f")
 		)
 		(instances
 			(project "ESP32_SensorScope"
