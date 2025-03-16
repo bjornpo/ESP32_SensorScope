@@ -141,6 +141,151 @@
 				)
 			)
 		)
+		(symbol "Device:D_TVS"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_TVS"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Bidirectional transient-voltage-suppression diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode TVS thyrector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_TVS_0_1"
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.508 1.27) (xy 0 1.27) (xy 0 -1.27) (xy -0.508 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 1.27) (xy -2.54 -1.27) (xy 2.54 1.27) (xy 2.54 -1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_TVS_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "A1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:R"
 			(pin_numbers hide)
 			(pin_names
@@ -1390,6 +1535,12 @@
 		)
 	)
 	(junction
+		(at 166.37 90.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0db28ad1-3b4e-4f9c-bbd3-2960d960fa3a")
+	)
+	(junction
 		(at 82.55 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1400,6 +1551,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4bcb2401-d98b-44bf-8df1-980bcf866d10")
+	)
+	(junction
+		(at 154.94 95.25)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "82ce19bf-f076-4b47-9a94-19f104ff6d36")
+	)
+	(junction
+		(at 177.8 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "837be266-6037-417e-9f28-4679c0c96445")
 	)
 	(junction
 		(at 139.7 39.37)
@@ -1413,13 +1576,13 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 80.01) (xy 162.56 80.01)
+			(xy 154.94 95.25) (xy 154.94 97.79)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "021a2baf-a0b7-45e8-a3b8-fbad31c17285")
+		(uuid "06b169af-3a88-482b-a318-f517bba045cf")
 	)
 	(wire
 		(pts
@@ -1460,16 +1623,6 @@
 			(type default)
 		)
 		(uuid "0f454b93-37f7-45cc-b055-48c064569883")
-	)
-	(wire
-		(pts
-			(xy 161.29 90.17) (xy 162.56 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "197c4276-81e4-429e-a020-10c089e9d76c")
 	)
 	(wire
 		(pts
@@ -1553,13 +1706,23 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 95.25) (xy 153.67 95.25)
+			(xy 139.7 95.25) (xy 154.94 95.25)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "38a9ae69-0de5-45d5-a5c0-8251caba64f6")
+	)
+	(wire
+		(pts
+			(xy 177.8 80.01) (xy 177.8 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ef9261b-cb8b-411a-9829-0b28ad14c245")
 	)
 	(wire
 		(pts
@@ -1583,7 +1746,17 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 90.17) (xy 153.67 90.17)
+			(xy 177.8 80.01) (xy 181.61 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f507a37-b828-4ed0-b21a-7d5ed65f51a0")
+	)
+	(wire
+		(pts
+			(xy 139.7 90.17) (xy 166.37 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1693,6 +1866,16 @@
 	)
 	(wire
 		(pts
+			(xy 166.37 90.17) (xy 181.61 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3ad3d6a-152d-4c1e-90ef-30742723dcfe")
+	)
+	(wire
+		(pts
 			(xy 139.7 67.31) (xy 142.24 67.31)
 		)
 		(stroke
@@ -1723,6 +1906,16 @@
 	)
 	(wire
 		(pts
+			(xy 166.37 90.17) (xy 166.37 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd4c79ab-4d38-42f1-8a8c-2db4397cba7f")
+	)
+	(wire
+		(pts
 			(xy 149.86 67.31) (xy 151.13 67.31)
 		)
 		(stroke
@@ -1733,7 +1926,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 80.01) (xy 153.67 80.01)
+			(xy 139.7 80.01) (xy 177.8 80.01)
 		)
 		(stroke
 			(width 0)
@@ -1750,6 +1943,16 @@
 			(type default)
 		)
 		(uuid "d251289a-27a1-472d-8086-dd150ab2864f")
+	)
+	(wire
+		(pts
+			(xy 181.61 95.25) (xy 154.94 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4846b83-4404-4527-91c1-80e0a3bcd2b2")
 	)
 	(wire
 		(pts
@@ -1831,6 +2034,48 @@
 		)
 		(uuid "6bf2b423-e417-4def-abff-6921f7f170d7")
 	)
+	(global_label "RS232_RX1"
+		(shape input)
+		(at 181.61 90.17 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "28230a1c-542f-467f-85cd-28e764df0925")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 195.3598 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "RS232_RX2"
+		(shape input)
+		(at 181.61 95.25 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "54ba756e-a394-4d8e-b483-191115ab48d8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 195.3598 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "UART1_RX"
 		(shape input)
 		(at 54.61 123.19 180)
@@ -1849,6 +2094,27 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "RS232_TX"
+		(shape input)
+		(at 181.61 80.01 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6e2ef530-e5a9-48dd-a7c5-bb78bbb59ec3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 193.8479 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -2119,6 +2385,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 166.37 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2e850507-3e8f-4635-9abe-327361172a1d")
+		(property "Reference" "#PWR0150"
+			(at 166.37 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 166.37 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 166.37 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 166.37 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 166.37 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5ec8ee8e-3bcb-48c9-9059-31452f595341")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
+					(reference "#PWR0150")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 151.13 67.31 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2252,24 +2583,25 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 157.48 80.01 90)
+		(lib_id "power:GND")
+		(at 177.8 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5038e377-ce2f-49b1-a421-b99f9e997e42")
-		(property "Reference" "R23"
-			(at 157.48 80.01 90)
+		(uuid "4157dd68-3810-41be-a6f4-12be8c8bc812")
+		(property "Reference" "#PWR0151"
+			(at 177.8 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Value" "10"
-			(at 157.48 77.978 90)
+		(property "Value" "GND"
+			(at 177.8 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2277,7 +2609,74 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.48 81.788 90)
+			(at 177.8 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 177.8 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "54c6a5b7-0e9b-48fe-92cb-278af575aff6")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
+					(reference "#PWR0151")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D_TVS")
+		(at 166.37 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "485edb02-f3e8-4cca-95e9-00020b37f7b3")
+		(property "Reference" "D37"
+			(at 168.91 100.3299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "28VDC"
+			(at 168.91 102.8699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 166.37 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2286,7 +2685,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 157.48 80.01 0)
+			(at 166.37 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2294,25 +2693,25 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 157.48 80.01 0)
+		(property "Description" "Bidirectional transient-voltage-suppression diode"
+			(at 166.37 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "2"
-			(uuid "cf649357-95a9-4bf1-beca-1759c48f1968")
 		)
 		(pin "1"
-			(uuid "c362675e-b75d-4749-be31-7c16ce0f7fac")
+			(uuid "2063aab3-60b1-4b63-b372-f386382e175d")
+		)
+		(pin "2"
+			(uuid "79ca9235-43a9-4aef-8c9d-573d38f5a3c5")
 		)
 		(instances
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
-					(reference "R23")
+					(reference "D37")
 					(unit 1)
 				)
 			)
@@ -2946,73 +3345,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 157.48 90.17 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9d1de5d6-e790-4d89-bc16-73a801f58783")
-		(property "Reference" "R26"
-			(at 157.48 90.17 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10"
-			(at 157.48 92.202 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 157.48 91.948 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 157.48 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 157.48 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "b8cc0d4f-f781-4b09-b028-2b90137469cd")
-		)
-		(pin "1"
-			(uuid "3c4c118e-b936-4a53-a395-f874a377b8f6")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
-					(reference "R26")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Interface_UART:MAX232")
 		(at 119.38 77.47 0)
 		(unit 1)
@@ -3258,6 +3590,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 154.94 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bc1edbc7-2cdd-4432-9fa3-bf2fb1b88e1a")
+		(property "Reference" "#PWR0149"
+			(at 154.94 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 154.94 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 154.94 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 154.94 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 154.94 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5f507280-442e-49e2-ae42-e0fe049062f1")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
+					(reference "#PWR0149")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 83.82 83.82 180)
 		(unit 1)
@@ -3460,73 +3857,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 157.48 95.25 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "cdbb636e-852a-4e1b-8aa6-7a9817b2aa05")
-		(property "Reference" "R27"
-			(at 157.48 95.25 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10"
-			(at 157.48 97.282 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 157.48 97.028 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 157.48 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 157.48 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ddc114f1-4c0b-407b-a0cf-0a51206a40ad")
-		)
-		(pin "1"
-			(uuid "726b6625-273a-4b92-ba6c-85ec18ce1102")
-		)
-		(instances
-			(project "ESP32_SensorScope"
-				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
-					(reference "R27")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 139.7 40.64 0)
 		(unit 1)
@@ -3656,6 +3986,145 @@
 			(project "ESP32_SensorScope"
 				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
 					(reference "R29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D_TVS")
+		(at 154.94 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "de04cc5a-e1e6-432f-a711-5e1bc95782a2")
+		(property "Reference" "D36"
+			(at 157.48 100.3299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "28VDC"
+			(at 157.48 102.8699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 154.94 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 154.94 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Bidirectional transient-voltage-suppression diode"
+			(at 154.94 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0e33308e-de1d-4ab2-b7aa-0593bb73961d")
+		)
+		(pin "2"
+			(uuid "405fcccf-88e4-4011-a6c2-84b944c0b3cd")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
+					(reference "D36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D_TVS")
+		(at 177.8 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e0e90aa4-a441-4ec1-aad1-a12e285f3388")
+		(property "Reference" "D38"
+			(at 180.34 100.3299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "28VDC"
+			(at 180.34 102.8699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Bidirectional transient-voltage-suppression diode"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bb88add2-17c5-4746-8aba-47db898770a9")
+		)
+		(pin "2"
+			(uuid "b3974046-b7df-4db4-aae1-c89c337ec780")
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1/61855475-056f-41a1-be83-8f98d1ed07bc"
+					(reference "D38")
 					(unit 1)
 				)
 			)

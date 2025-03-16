@@ -92,6 +92,44 @@
 		)
 	)
 	(sheet
+		(at 136.398 72.898)
+		(size 15.748 8.128)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "25df8cdf-1110-4731-8c3f-6c6e6d252b47")
+		(property "Sheetname" "UART"
+			(at 136.398 72.1864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "UART.kicad_sch"
+			(at 136.398 81.6106 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32_SensorScope"
+				(path "/53b18f60-802b-4114-ad1b-2672cfed64a1"
+					(page "12")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 88.9 128.27)
 		(size 30.48 15.24)
 		(fields_autoplaced yes)
