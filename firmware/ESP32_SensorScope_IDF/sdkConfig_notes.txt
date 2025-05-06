@@ -1,0 +1,2 @@
+Component config
+Application Level Tracing APPTRACE_DESTINATION1
