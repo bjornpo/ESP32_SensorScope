@@ -9,7 +9,7 @@
 #include "lv_examples.h"
 #include "lv_demos.h"
 #include "appGUI.h"
-
+#include "settings.h"
 
 
 static const char *TAG = "main";
@@ -28,7 +28,8 @@ void app_main(void)
     //lv_demo_widgets();
     //lv_demo_benchmark();
     //lv_demo_scroll();
-    lvgl_example_menu_3();
+    //lvgl_example_menu_3();
+    create_menu_screen();
     lvgl_unlock();
 
     while (1) {
