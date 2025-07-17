@@ -3,6 +3,7 @@
 #include "appGUI.h"
 #include "lvgl.h"
 #include "serial_analyzer.h"
+#include "ui_settings.h"
 //#include "lvgl_helpers.h"
 
 //#include "Circuitboard_dark_landscape.c"  // Include the image source
@@ -50,7 +51,7 @@ static const menu_entry_t main_menu_entries[] = {
     {"Serial\nanalyzer", &serial_analyzer_icon_65, serial_analyzer_settings_screen},
     {"Protocol\nanalyzer", &protocol_analyzer_icon_65, menu_coming_soon},
     {"Analog\nmA/V", &analog_icon_65, menu_coming_soon},
-    {"Settings", &Settings_icon_65, menu_coming_soon},
+    {"Settings", &Settings_icon_65, settings_screen},
     //{"About", &oscilloscope_50, oscilloscope_settings_screen},
 };
 

@@ -1,6 +1,7 @@
 idf_component_register(SRCS 
     "appGUI.c"
     "serial_analyzer.c"
+    "ui_settings.c"
     "Circuitboard_dark_landscape.c"
     "oscilloscope_icon_65.c"
     "analog_icon_65.c"
@@ -11,4 +12,5 @@ idf_component_register(SRCS
     "Settings_icon_65.c"
     "terminal_icon_65.c"
     INCLUDE_DIRS "."
-    REQUIRES lvgl)
+    REQUIRES lvgl
+    REQUIRES main)

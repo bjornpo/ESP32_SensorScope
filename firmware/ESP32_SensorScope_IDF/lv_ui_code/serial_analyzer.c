@@ -1,28 +1,43 @@
 //serial_analyzer.c
 
 #include "Serial_analyzer.h"
+#include "../main/settings.h"
+#include "../main/shared_types.h"
 #include "lvgl.h"
 #include "appGUI.h"
 #include <string.h>
+#include <inttypes.h>
+#include <stdio.h>
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+#include "../main/serial_analyzer_rmt.h"
+#endif // CONFIG_IDF_TARGET_ESP32S3
 
 //LV_FONT_DECLARE(Greek_alphabet_14);
 
-/*static void event_handler(lv_event_t * e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t * obj = lv_event_get_target(e);
-    if(code == LV_EVENT_VALUE_CHANGED) {
-        char buf[32];
-        lv_dropdown_get_selected_str(obj, buf, sizeof(buf));
-        LV_LOG_USER("Option: %s", buf);
-    }
-}*/
-
-//static lv_obj_t *COM_group_serial_settings;
 static lv_obj_t * serial_termination_checkbox;
 static lv_obj_t * serial_bias_checkbox;
 
-void sample_help_button_cb()
+char SampleSizeDropdownString[] = "20\n50\n100\n500\n1000";
+
+static uint32_t getIndexFromString(char * str, uint32_t num) //Used to find index from string in dropdown menu
+{
+    char buffer[8];
+    snprintf(buffer, sizeof(buffer), "%"PRIu32, num);
+    char *ptr = strstr(str, buffer);
+    int index = 0;
+    while(ptr >= str)
+    {
+        if(*ptr == '\n')
+        {
+            index++;
+        }
+        ptr--;
+    }
+    return index;
+}
+
+
+static void sample_help_button_cb()
 {
     lv_obj_t * mbox1 = lv_msgbox_create(NULL);
 
@@ -32,7 +47,17 @@ void sample_help_button_cb()
     lv_msgbox_add_close_button(mbox1);
 }
 
-void about_button_cb()
+static void bus_idle_checkbox_help_button_cb()
+{
+    lv_obj_t * mbox1 = lv_msgbox_create(NULL);
+
+    lv_msgbox_add_title(mbox1, "Stop when bus is idle");
+
+    lv_msgbox_add_text(mbox1, "If enabled, the analyzer will stop recording when the bus is idle for more then 100mS.");
+    lv_msgbox_add_close_button(mbox1);
+}
+
+static void about_button_cb()
 {
     lv_obj_t * mbox1 = lv_msgbox_create(NULL);
 
@@ -42,21 +67,34 @@ void about_button_cb()
     lv_msgbox_add_close_button(mbox1);
 }
 
-void exit_button_cb()
+static void exit_button_cb()
 {
     //load main menu
     create_menu_screen();
 }
 
-void com_port_dropdown_cb(lv_event_t * e)
+static void start_button_cb()
+{
+    // Start the serial analyzer
+    //ESP_LOGI("SerialAnalyzer", "Starting serial analyzer with %d samples", g_settings.serial_analyzer.sample_size);
+    #ifdef CONFIG_IDF_TARGET_ESP32S3
+    SerialAnalyzer_RMT_start();
+    #else
+    // TODO: dummy RMT?
+    #endif
+    create_menu_screen();
+}
+
+static void com_port_dropdown_cb(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
     if(code == LV_EVENT_VALUE_CHANGED) {
         char buf[32];
         lv_dropdown_get_selected_str(obj, buf, sizeof(buf));
+        g_settings.serial_analyzer.com_port = lv_dropdown_get_selected(obj);
         LV_LOG_USER("Option: %s", buf);
-        if(!strcmp(buf, "RS485"))
+        if(g_settings.serial_analyzer.com_port == RS485)
         {
             LV_LOG_USER("RS485 selected");
             lv_obj_clear_state(serial_termination_checkbox, LV_STATE_DISABLED);
@@ -70,31 +108,51 @@ void com_port_dropdown_cb(lv_event_t * e)
     }
 }
 
-void serial_termination_checkbox_cb(lv_event_t * e)
+static void samples_dropdown_cb(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
     if(code == LV_EVENT_VALUE_CHANGED) {
-        LV_UNUSED(obj);
-        const char * txt = lv_checkbox_get_text(obj);
-        const char * state = lv_obj_get_state(obj) & LV_STATE_CHECKED ? "Checked" : "Unchecked";
-        LV_UNUSED(txt);
-        LV_UNUSED(state);
-        LV_LOG_USER("%s: %s", txt, state);
+        char buf[32];
+        lv_dropdown_get_selected_str(obj, buf, sizeof(buf));
+        uint32_t samples = atoi(buf);
+        if(samples > 0)
+        {
+            g_settings.serial_analyzer.sample_size = samples;
+        }
     }
 }
 
-void serial_bias_checkbox_cb(lv_event_t * e)
+static void serial_termination_checkbox_cb(lv_event_t * e)
 {
-    lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
-    if(code == LV_EVENT_VALUE_CHANGED) {
-        LV_UNUSED(obj);
-        const char * txt = lv_checkbox_get_text(obj);
-        const char * state = lv_obj_get_state(obj) & LV_STATE_CHECKED ? "Checked" : "Unchecked";
-        LV_UNUSED(txt);
-        LV_UNUSED(state);
-        LV_LOG_USER("%s: %s", txt, state);
+    if (lv_obj_has_state(obj, LV_STATE_CHECKED)) {
+        g_settings.serial_analyzer.termination_enabled = true;
+    }
+    else{
+        g_settings.serial_analyzer.termination_enabled = false;
+    }
+}
+
+static void serial_bias_checkbox_cb(lv_event_t * e)
+{
+    lv_obj_t * obj = lv_event_get_target(e);
+    if (lv_obj_has_state(obj, LV_STATE_CHECKED)) {
+        g_settings.serial_analyzer.bias_enabled = true;
+    }
+    else{
+        g_settings.serial_analyzer.bias_enabled = false;
+    }
+}
+
+static void bus_idle_checkbox_cb(lv_event_t * e)
+{
+    lv_obj_t * obj = lv_event_get_target(e);
+    if (lv_obj_has_state(obj, LV_STATE_CHECKED)) {
+        g_settings.serial_analyzer.stop_when_bus_idle = true;
+    }
+    else{
+        g_settings.serial_analyzer.stop_when_bus_idle = false;
     }
 }
 
@@ -139,13 +197,13 @@ void serial_analyzer_settings_screen()
     lv_obj_t * com_port_dropdown = lv_dropdown_create(COM_group);
     lv_dropdown_set_options(com_port_dropdown, "RS232\n"
                             "RS485\n"
-                            "UART\n"
-                            "SDI-12"
+                            "SDI-12\n"
+                            "UART"
                             );
-    lv_dropdown_set_selected(com_port_dropdown, 0); //set default value
+    lv_dropdown_set_selected(com_port_dropdown, (int)g_settings.serial_analyzer.com_port); //set default value
     lv_obj_set_width(com_port_dropdown, 100);
     lv_obj_align(com_port_dropdown, LV_ALIGN_BOTTOM_LEFT, 0, 20);
-    lv_obj_add_event_cb(com_port_dropdown, com_port_dropdown_cb, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(com_port_dropdown, com_port_dropdown_cb, LV_EVENT_VALUE_CHANGED, NULL);
 /*    //Add flex for additional serial settings
     COM_group_serial_settings = lv_obj_create(COM_group);  // Create container
     lv_obj_set_size(COM_group_serial_settings, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
@@ -166,14 +224,45 @@ void serial_analyzer_settings_screen()
     //LV_LOG_USER("Font is Montserrat 14\n");
 //}
     lv_obj_set_style_opa(serial_termination_checkbox, LV_OPA_30, LV_PART_MAIN | LV_STATE_DISABLED);
-    lv_obj_add_state(serial_termination_checkbox, LV_STATE_DISABLED);
-    lv_obj_add_event_cb(serial_termination_checkbox, serial_termination_checkbox_cb, LV_EVENT_ALL, NULL);
+    if(g_settings.serial_analyzer.termination_enabled)
+    {
+        lv_obj_add_state(serial_termination_checkbox, LV_STATE_CHECKED);
+    }
+    else
+    {
+        lv_obj_remove_state(serial_termination_checkbox, LV_STATE_CHECKED);
+    }
+    if(g_settings.serial_analyzer.com_port == RS485)
+    {
+        lv_obj_remove_state(serial_termination_checkbox, LV_STATE_DISABLED);
+    }
+    else
+    {
+        lv_obj_add_state(serial_termination_checkbox, LV_STATE_DISABLED);
+    }
+    lv_obj_add_event_cb(serial_termination_checkbox, serial_termination_checkbox_cb, LV_EVENT_VALUE_CHANGED, NULL);
     //
     serial_bias_checkbox = lv_checkbox_create(COM_group);
     lv_checkbox_set_text(serial_bias_checkbox, "bias resistors");
     lv_obj_set_style_opa(serial_bias_checkbox, LV_OPA_30, LV_PART_MAIN | LV_STATE_DISABLED);
     lv_obj_add_state(serial_bias_checkbox, LV_STATE_DISABLED);
-    lv_obj_add_event_cb(serial_bias_checkbox, serial_bias_checkbox_cb, LV_EVENT_ALL, NULL);
+    if(g_settings.serial_analyzer.bias_enabled)
+    {
+        lv_obj_add_state(serial_bias_checkbox, LV_STATE_CHECKED);
+    }
+    else
+    {
+        lv_obj_remove_state(serial_bias_checkbox, LV_STATE_CHECKED);
+    }
+    if(g_settings.serial_analyzer.com_port == RS485)
+    {
+        lv_obj_remove_state(serial_bias_checkbox, LV_STATE_DISABLED);
+    }
+    else
+    {
+        lv_obj_add_state(serial_bias_checkbox, LV_STATE_DISABLED);
+    }
+    lv_obj_add_event_cb(serial_bias_checkbox, serial_bias_checkbox_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
     //Sample size group
     lv_obj_t *sample_group = lv_obj_create(group);  // Create container
@@ -196,20 +285,45 @@ void serial_analyzer_settings_screen()
     lv_obj_set_style_pad_column(dropdown_group, 0, 0);  // 1 pixels between rows
     lv_obj_set_style_bg_opa(dropdown_group, LV_OPA_TRANSP, 0);  // Transparent
     lv_obj_t * samples_dropdown = lv_dropdown_create(dropdown_group);
-    lv_dropdown_set_options(samples_dropdown, "20\n"
-                            "50\n"
-                            "100\n"
-                            "500\n"
-                            "1000");
+    lv_dropdown_set_options(samples_dropdown, SampleSizeDropdownString);
     /*Set a fixed text to display on the button of the drop-down list*/
-    lv_dropdown_set_selected(samples_dropdown, 2); //set default value
+    lv_dropdown_set_selected(samples_dropdown, getIndexFromString(SampleSizeDropdownString, g_settings.serial_analyzer.sample_size)); //set default value
     lv_obj_set_width(samples_dropdown, 100);
+    lv_obj_add_event_cb(samples_dropdown, samples_dropdown_cb, LV_EVENT_VALUE_CHANGED, NULL);
+
     //help button
     lv_obj_t *sample_help_button = lv_button_create(dropdown_group);
     lv_obj_set_style_bg_color(sample_help_button, lv_color_hex(0x666666), LV_PART_MAIN);
     lv_obj_t *sample_help_button_label = lv_label_create(sample_help_button);
     lv_label_set_text(sample_help_button_label, "?");
     lv_obj_add_event_cb(sample_help_button, (lv_event_cb_t)sample_help_button_cb, LV_EVENT_CLICKED, NULL);
+
+        //checkbox for stop when bus is idle
+    lv_obj_t * bus_idle_checkbox_group = lv_obj_create(sample_group);
+    lv_obj_set_size(bus_idle_checkbox_group, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_layout(bus_idle_checkbox_group, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(bus_idle_checkbox_group, LV_FLEX_FLOW_ROW);
+    lv_obj_set_style_bg_opa(bus_idle_checkbox_group, LV_OPA_TRANSP, 0);  // Transparent
+    lv_obj_set_style_pad_all(bus_idle_checkbox_group, 0, 0);
+    lv_obj_set_style_border_width(bus_idle_checkbox_group, 0, 0);
+    lv_obj_set_style_pad_column(bus_idle_checkbox_group, 0, 0);
+    lv_obj_t * bus_idle_checkbox = lv_checkbox_create(bus_idle_checkbox_group);
+    lv_checkbox_set_text(bus_idle_checkbox, "Stop at\nbus idle");
+    if(g_settings.serial_analyzer.stop_when_bus_idle)
+    {
+        lv_obj_add_state(bus_idle_checkbox, LV_STATE_CHECKED);
+    }
+    else
+    {
+        lv_obj_remove_state(bus_idle_checkbox, LV_STATE_CHECKED);
+    }
+    lv_obj_add_event_cb(bus_idle_checkbox, (lv_event_cb_t)bus_idle_checkbox_cb, LV_EVENT_VALUE_CHANGED, NULL);
+
+    lv_obj_t * bus_idle_checkbox_help_button = lv_button_create(bus_idle_checkbox_group);
+    lv_obj_set_style_bg_color(bus_idle_checkbox_help_button, lv_color_hex(0x666666), LV_PART_MAIN);
+    lv_obj_t * bus_idle_checkbox_help_button_label = lv_label_create(bus_idle_checkbox_help_button);
+    lv_label_set_text(bus_idle_checkbox_help_button_label, "?");
+    lv_obj_add_event_cb(bus_idle_checkbox_help_button, (lv_event_cb_t)bus_idle_checkbox_help_button_cb, LV_EVENT_CLICKED, NULL);
 
     //Buttons
     lv_obj_t *button_group = lv_obj_create(group);
@@ -244,6 +358,17 @@ void serial_analyzer_settings_screen()
     lv_obj_t *start_button_label = lv_label_create(start_button);
     lv_label_set_text(start_button_label, "Start");
     lv_obj_center(start_button_label);
+    lv_obj_add_event_cb(start_button, (lv_event_cb_t)start_button_cb, LV_EVENT_CLICKED, NULL);
 }
 
 
+void serial_analyzer_init_defaults(SerialAnalyzerConfig *config)
+{
+    if (config == NULL) return;  // Check for null pointer
+    memset(config, 0, sizeof(SerialAnalyzerConfig));  // Clear the structure
+    config->com_port = RS232;  // Default com port
+    config->termination_enabled = false;  // Default termination state
+    config->bias_enabled = false;  // Default bias state
+    config->stop_when_bus_idle = false;
+    config->sample_size = 100;  // Default sample size
+}

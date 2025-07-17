@@ -5,6 +5,7 @@
 #include "esp_log.h"
 #include "display_driver.h"
 #include "lvgl.h"
+#include "driver/gpio.h"
 
 #include "lv_examples.h"
 #include "lv_demos.h"
@@ -20,6 +21,29 @@ void app_main(void)
 
     // Initialize display hardware (SPI, backlight, LCD)
     display_driver_init_display();
+
+    // load NVS settings
+    nvs_init();
+
+    // GPIO initialization  
+    gpio_config_t test_gpio_config = {
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+        .pin_bit_mask = 1ULL << 21
+    };
+    ESP_ERROR_CHECK(gpio_config(&test_gpio_config));
+
+      gpio_config_t test2_gpio_config = {
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+        .pin_bit_mask = 1ULL << 48
+    };
+    ESP_ERROR_CHECK(gpio_config(&test2_gpio_config));
+
 
     // Display LVGL content (e.g., demo widget)
     lvgl_lock();
