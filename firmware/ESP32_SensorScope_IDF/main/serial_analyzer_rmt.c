@@ -15,6 +15,7 @@ typedef struct {
     bool is_last; // Indicating if the current received data are the last part of the transaction
 } rmt_event_t;
 
+
 QueueHandle_t rmt_event_queue;
 
 #define RMT_RX_GPIO GPIO_NUM_44  // GPIO for RMT RX 44
@@ -29,18 +30,14 @@ static bool IRAM_ATTR on_rmt_rx_done(rmt_channel_handle_t channel, const rmt_rx_
     //ESP_LOGI(TAG, "Capture done with %d symbols", edata->num_symbols);
     gpio_set_level(GPIO_NUM_48, 1);
     BaseType_t task_awoken = pdFALSE;
-    bool is_last = false;
+    size_t * counter = (size_t *)user_data;
 
-    if(g_settings.serial_analyzer.stop_when_bus_idle) {
-        is_last = true;
-    }
-    else if(edata->num_symbols > (g_settings.serial_analyzer.sample_size - 10 - (g_settings.serial_analyzer.sample_size*20)/100)) {
-        is_last = true;
-    }
+    bool is_last = g_settings.serial_analyzer.stop_when_bus_idle ||
+                   ((edata->num_symbols + *counter) > (g_settings.serial_analyzer.sample_size - 10 - (g_settings.serial_analyzer.sample_size * 20) / 100));
 
     rmt_event_t evt = {
         .num_symbols = edata->num_symbols,
-        .is_last = is_last
+        .is_last = is_last,
     };
 
     xQueueSendFromISR(rmt_event_queue, &evt, &task_awoken);
@@ -53,6 +50,8 @@ void rmt_analyzer_task(void *arg)
     ESP_LOGI(TAG, "RMT Analyzer task started. Sample size: %d", (int)g_settings.serial_analyzer.sample_size);
 
     rmt_event_queue = xQueueCreate(4, sizeof(rmt_event_t));
+    size_t true_num_symbols = 0; //rmt_rx_done_event_data_t->num_symbols get reset after each receive
+
 
     // Configure RMT RX channel
     rmt_rx_channel_config_t rx_config = {
@@ -68,7 +67,7 @@ void rmt_analyzer_task(void *arg)
     rmt_rx_event_callbacks_t cbs = {
         .on_recv_done = on_rmt_rx_done,
     };
-    ESP_ERROR_CHECK(rmt_rx_register_event_callbacks(rx_channel, &cbs, NULL));
+    ESP_ERROR_CHECK(rmt_rx_register_event_callbacks(rx_channel, &cbs, &true_num_symbols));
 
     // Enable channel
     ESP_ERROR_CHECK(rmt_enable(rx_channel));
@@ -79,16 +78,7 @@ void rmt_analyzer_task(void *arg)
         .flags.en_partial_rx = false,     // Enable partial reception if buffer is not enough
     };
 
-    // Allocate symbol buffer
-    //rmt_symbol_word_t *rx_symbols = (rmt_symbol_word_t *)heap_caps_malloc(
-    //    g_settings.serial_analyzer.sample_size * sizeof(rmt_symbol_word_t),
-    //    MALLOC_CAP_INTERNAL
-    //);
-    //if (!rx_symbols) {
-    //    ESP_LOGE(TAG, "Failed to allocate rx_symbols buffer in internal RAM");
-    //    vTaskDelete(NULL);
-    //    return;
-    //}
+
     rmt_symbol_word_t rx_symbols[g_settings.serial_analyzer.sample_size];
 
     // Start receiving
@@ -96,18 +86,18 @@ void rmt_analyzer_task(void *arg)
     ESP_ERROR_CHECK(rmt_receive(rx_channel, rx_symbols, sizeof(rx_symbols), &receive_config));
     //ESP_ERROR_CHECK(rmt_receive(rx_channel, rx_symbols, sizeof(rx_symbols), NULL));
 
-    size_t true_num_symbols = 0; //rmt_rx_done_event_data_t->num_symbols get reset after each receive
+    bool task_done = false;
     while (1)
     {
         rmt_event_t evt;
-        if (xQueueReceive(rmt_event_queue, &evt, portMAX_DELAY)) {
+        if (xQueueReceive(rmt_event_queue, &evt, pdMS_TO_TICKS(100))) {
             gpio_set_level(GPIO_NUM_48, 0); // Turn off GPIO after receiving
             true_num_symbols += evt.num_symbols;
             if(!evt.is_last) {
                 // If not the last part, we can continue receiving
                 size_t used_bytes = true_num_symbols * sizeof(rmt_symbol_word_t);
                 ESP_ERROR_CHECK(rmt_receive(rx_channel, rx_symbols+true_num_symbols, sizeof(rx_symbols)-used_bytes, &receive_config));
-                ESP_LOGI(TAG, "Received %d symbols, waiting for more...", evt.num_symbols);
+                ESP_LOGI(TAG, "Received %d symbols, total received symbols is %d waiting for more...", evt.num_symbols, true_num_symbols);
                 continue;
             }
             else
@@ -120,17 +110,25 @@ void rmt_analyzer_task(void *arg)
                     ESP_LOGI(TAG, "Symbol %d: level0=%d, duration0=%d, level1=%d, duration1=%d",
                          i, sym->level0, sym->duration0, sym->level1, sym->duration1);
                 }
+
+                //TODO: process the received symbols
+                ESP_ERROR_CHECK(rmt_disable(rx_channel));
+                ESP_ERROR_CHECK(rmt_del_channel(rx_channel));
+                vQueueDelete(rmt_event_queue);
+                ESP_LOGI(TAG, "RMT Analyzer task completed. Closing task");
+                // Exit the task
+                vTaskDelete(NULL);
+                task_done = true;
             }
         }
-        else {
-            ESP_LOGW(TAG, "No event received");
+        if(task_done || analyzer_abort_requested) {
+            ESP_LOGI(TAG, "%s",
+             task_done ? "Analyzer task completed, closing tast" : "Analyzer task aborted by user.");
+            ESP_ERROR_CHECK(rmt_disable(rx_channel));
+            ESP_ERROR_CHECK(rmt_del_channel(rx_channel));
+            vQueueDelete(rmt_event_queue);
+            vTaskDelete(NULL);
         }
-        //TODO: wait for the reception to complete
-
-        //TODO: process the received symbols
-
-        // For testing. remove later
-        ESP_ERROR_CHECK(rmt_receive(rx_channel, rx_symbols, sizeof(rx_symbols), &receive_config));
     }
 }
 

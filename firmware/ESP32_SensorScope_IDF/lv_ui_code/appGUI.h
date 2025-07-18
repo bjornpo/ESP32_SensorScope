@@ -15,10 +15,6 @@ typedef struct {
     void (*create_settings_screen)(void);
 } menu_entry_t;
 
-//extern const menu_entry_t main_menu_entries[];
-
-
-void lvgl_example_menu_3(void);
 void create_menu_screen(void);
 void create_background_screen(void);
 

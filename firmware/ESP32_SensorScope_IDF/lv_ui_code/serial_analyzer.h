@@ -14,8 +14,12 @@ typedef struct {
     uint32_t sample_size;
 } SerialAnalyzerConfig;
 
+// Global settings for cancelling the analyzer and killing the task
+extern volatile bool analyzer_abort_requested;
+
 void serial_analyzer_init_defaults(SerialAnalyzerConfig *config);
 void serial_analyzer_settings_screen();
+void serial_analyzer_recording_screen();
 
 #ifdef __cplusplus
 extern "C" {

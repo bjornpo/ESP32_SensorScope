@@ -16,6 +16,9 @@
 
 static lv_obj_t * serial_termination_checkbox;
 static lv_obj_t * serial_bias_checkbox;
+static lv_obj_t * recording_num_symbols_label;
+
+volatile bool analyzer_abort_requested = false; // Global variable to signal the analyzer task to abort
 
 char SampleSizeDropdownString[] = "20\n50\n100\n500\n1000";
 
@@ -82,7 +85,8 @@ static void start_button_cb()
     #else
     // TODO: dummy RMT?
     #endif
-    create_menu_screen();
+    //create_menu_screen();
+    serial_analyzer_recording_screen();
 }
 
 static void com_port_dropdown_cb(lv_event_t * e)
@@ -159,6 +163,7 @@ static void bus_idle_checkbox_cb(lv_event_t * e)
 
 void serial_analyzer_settings_screen()
 {
+    lv_obj_clean(lv_scr_act());
     lv_obj_t * screen = lv_obj_create(NULL);
     lv_scr_load(screen);
     create_background_screen();
@@ -361,6 +366,64 @@ void serial_analyzer_settings_screen()
     lv_obj_add_event_cb(start_button, (lv_event_cb_t)start_button_cb, LV_EVENT_CLICKED, NULL);
 }
 
+static void recording_cancel_button_cb()
+{
+    analyzer_abort_requested = true;
+    serial_analyzer_settings_screen();
+}
+
+void serial_analyzer_recording_screen()
+{
+    lv_obj_clean(lv_scr_act());
+    lv_obj_t * screen = lv_obj_create(NULL);
+    lv_scr_load(screen);
+    create_background_screen();
+
+    static int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    static int32_t row_dsc[] = {LV_GRID_FR(1), 20, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    lv_obj_t * cont = lv_obj_create(lv_screen_active());
+    lv_obj_set_style_grid_column_dsc_array(cont, col_dsc, 0);
+    lv_obj_set_style_grid_row_dsc_array(cont, row_dsc, 0);
+    lv_obj_set_size(cont, 300, 220);
+    lv_obj_center(cont);
+    lv_obj_set_layout(cont, LV_LAYOUT_GRID);
+    //Cell (0,0)
+    lv_obj_t *title = lv_label_create(cont);
+    lv_label_set_text(title, "Recording...");
+    lv_obj_set_style_text_font(title, &lv_font_montserrat_20, LV_PART_MAIN);
+    lv_obj_set_grid_cell(title, LV_GRID_ALIGN_START, 0, 1,
+                             LV_GRID_ALIGN_CENTER, 0, 1);
+    //cell (1,0)
+    lv_obj_t * spinner = lv_spinner_create(cont);
+    lv_obj_set_size(spinner, 50, 50);
+    lv_obj_set_grid_cell(spinner, LV_GRID_ALIGN_START, 1, 1,
+                             LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_spinner_set_anim_params(spinner, 1000, 200);
+
+    //cell (0,1)
+    lv_obj_t *received_symbols_label = lv_label_create(cont);
+    lv_label_set_text(received_symbols_label, "Received symbols:");
+    lv_obj_set_grid_cell(received_symbols_label, LV_GRID_ALIGN_END, 0, 1,
+                             LV_GRID_ALIGN_START, 1, 1);
+
+    recording_num_symbols_label = lv_label_create(cont);
+    lv_label_set_text(recording_num_symbols_label, "0");
+    lv_obj_set_grid_cell(recording_num_symbols_label, LV_GRID_ALIGN_START, 1, 1,
+                             LV_GRID_ALIGN_START, 1, 1);
+
+    //cell (0,2) cancel btn
+    lv_obj_t * recording_cancel_button = lv_button_create(cont);
+    lv_obj_set_style_bg_color(recording_cancel_button, lv_color_hex(0xAA0000), LV_PART_MAIN);
+    lv_obj_set_width(recording_cancel_button, LV_PCT(90));
+    lv_obj_t *recording_cancel_button_label = lv_label_create(recording_cancel_button);
+    lv_label_set_text(recording_cancel_button_label, "Abort");
+    lv_obj_set_style_text_font(recording_cancel_button_label, &lv_font_montserrat_20, LV_PART_MAIN);
+
+    lv_obj_center(recording_cancel_button_label);
+    lv_obj_set_grid_cell(recording_cancel_button, LV_GRID_ALIGN_STRETCH, 0, 2,
+                             LV_GRID_ALIGN_STRETCH, 2, 1);
+    lv_obj_add_event_cb(recording_cancel_button, (lv_event_cb_t)recording_cancel_button_cb, LV_EVENT_CLICKED, NULL);
+}
 
 void serial_analyzer_init_defaults(SerialAnalyzerConfig *config)
 {
