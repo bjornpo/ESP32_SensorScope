@@ -8,5 +8,6 @@ idf_component_register(SRCS
     "main.c"
     "settings.c"
     "serial_analyzer_rmt.c"
+    "oscilloscope.c"
     INCLUDE_DIRS ".")
 

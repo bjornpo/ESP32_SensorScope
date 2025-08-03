@@ -10,11 +10,12 @@
 #endif // CONFIG_IDF_TARGET_ESP32S3
 
 #include "serial_analyzer.h"
+#include "oscilloscope_ui.h"
 
 AppSettings g_settings;
 
 #define SETTINGS_NAMESPACE "settings"
-#define SETTINGS_VERSION 2
+#define SETTINGS_VERSION 3
 
 static const char *TAG = "settings";
 
@@ -58,6 +59,7 @@ void init_default_settings(AppSettings *cfg)
     cfg->version = SETTINGS_VERSION;
 
     serial_analyzer_init_defaults(&cfg->serial_analyzer);
+    oscilloscope_init_defaults(&cfg->oscilloscope);
     //modbus_init_defaults(&cfg->modbus);
     //sdi12_init_defaults(&cfg->sdi12);
     // Add more as you include more modules

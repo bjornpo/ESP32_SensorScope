@@ -15,6 +15,7 @@ typedef struct {
     void (*create_settings_screen)(void);
 } menu_entry_t;
 
+void menu_coming_soon(void);
 void create_menu_screen(void);
 void create_background_screen(void);
 

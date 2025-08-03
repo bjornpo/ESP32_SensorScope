@@ -3,6 +3,7 @@
 #include "appGUI.h"
 #include "lvgl.h"
 #include "serial_analyzer.h"
+#include "oscilloscope_ui.h"
 #include "ui_settings.h"
 //#include "lvgl_helpers.h"
 
@@ -27,10 +28,6 @@ const lv_img_dsc_t *background_image = &Circuitboard_dark_landscape;
 lv_obj_t *status_bar;
 lv_obj_t *bg_img;
 
-void oscilloscope_settings_screen()
-{
-
-}
 
 void menu_coming_soon()
 {
@@ -45,6 +42,7 @@ void menu_coming_soon()
 
 static const menu_entry_t main_menu_entries[] = {
     {"Scope", &oscilloscope_icon_65, oscilloscope_settings_screen},
+    //{"Scope", &oscilloscope_icon_65, menu_coming_soon},
     {"Terminal", &terminal_icon_65, menu_coming_soon},
     {"SDI-12", &SDI_12_icon_65, menu_coming_soon},
     {"Modbus", &modbus_icon_65, menu_coming_soon},

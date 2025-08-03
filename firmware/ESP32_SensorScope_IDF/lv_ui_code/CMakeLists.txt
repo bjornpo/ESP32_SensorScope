@@ -1,6 +1,7 @@
 idf_component_register(SRCS 
     "appGUI.c"
     "serial_analyzer.c"
+    "oscilloscope_ui.c"
     "ui_settings.c"
     "Circuitboard_dark_landscape.c"
     "oscilloscope_icon_65.c"

@@ -1,6 +1,7 @@
 //serial_analyzer.c
 
 #include "Serial_analyzer.h"
+//#include "appGUI.h"
 #include "../main/settings.h"
 #include "../main/shared_types.h"
 #include "lvgl.h"
@@ -12,19 +13,21 @@
 #include "../main/serial_analyzer_rmt.h"
 #endif // CONFIG_IDF_TARGET_ESP32S3
 
+
 //LV_FONT_DECLARE(Greek_alphabet_14);
 
-static lv_obj_t * serial_termination_checkbox;
-static lv_obj_t * serial_bias_checkbox;
-static lv_obj_t * recording_num_symbols_label;
+static lv_obj_t * serial_termination_checkbox = NULL;
+static lv_obj_t * serial_bias_checkbox = NULL;
+static lv_obj_t * recording_num_symbols_label = NULL;
 
 volatile bool analyzer_abort_requested = false; // Global variable to signal the analyzer task to abort
+volatile bool analyzer_task_terminate_g = false; // Global variable to signal the analyzer task to terminate
 
-char SampleSizeDropdownString[] = "20\n50\n100\n500\n1000";
+char SampleSizeDropdownString[] = "50\n100\n500\n1000";
 
 static uint32_t getIndexFromString(char * str, uint32_t num) //Used to find index from string in dropdown menu
 {
-    char buffer[8];
+    char buffer[16];
     snprintf(buffer, sizeof(buffer), "%"PRIu32, num);
     char *ptr = strstr(str, buffer);
     int index = 0;
@@ -80,7 +83,7 @@ static void start_button_cb()
 {
     // Start the serial analyzer
     //ESP_LOGI("SerialAnalyzer", "Starting serial analyzer with %d samples", g_settings.serial_analyzer.sample_size);
-    #ifdef CONFIG_IDF_TARGET_ESP32S3
+    #ifdef ESP_PLATFORM
     SerialAnalyzer_RMT_start();
     #else
     // TODO: dummy RMT?
@@ -369,7 +372,298 @@ void serial_analyzer_settings_screen()
 static void recording_cancel_button_cb()
 {
     analyzer_abort_requested = true;
+    //serial_analyzer_settings_screen();
+    #ifndef ESP_PLATFORM
+    // Add a button to save the results to a file
+    static Serial_analyzer_data_t data;
+    fill_serial_analyzer_data(&data);
+    serial_analyzer_show_results_screen_async(&data);
+    #endif //ESP_PLATFORM
+}
+
+void serial_analyzer_recording_update_async(void *num_ptr)
+{
+    if(recording_num_symbols_label != NULL && num_ptr != NULL) {
+        uint32_t num_symbols = *(uint32_t *)num_ptr; // Cast the pointer to uint32_t
+        char buf[8];
+        snprintf(buf, sizeof(buf), "%"PRIu32, num_symbols);
+        lv_label_set_text(recording_num_symbols_label, buf);
+    }
+}
+
+
+void go_to_terminal_button_cb(lv_event_t * e)
+{
+    menu_coming_soon();
+}
+
+void show_data_button_cb(lv_event_t * e)
+{
+    //menu_coming_soon();
+    Serial_analyzer_data_t *data = lv_event_get_user_data(e);
+    lv_obj_t * mbox1 = lv_msgbox_create(NULL);
+    lv_obj_set_width(mbox1, 400);
+    LV_LOG_USER("Data: %p num_symbols= %d", data, data->num_symbols);
+    LV_LOG_USER("Decoded date= %s num_chars= %d", data->decoded_data, data->num_symbols);
+
+    lv_msgbox_add_title(mbox1, "Decoded data");
+
+    lv_obj_t *label = lv_label_create(mbox1);
+    lv_label_set_text(label, "ascii format:");
+    lv_obj_set_style_text_color(label, lv_color_hex(0xAAAAAA), 0); // Light grey
+    //    lv_obj_t *label2 = lv_label_create(mbox1);
+    //lv_label_set_text(label2, "ascii format:2");
+    lv_obj_t *container = lv_obj_create(mbox1);
+    lv_obj_set_size(container, LV_PCT(100), LV_SIZE_CONTENT);
+    lv_obj_t *ascii_data = lv_label_create(container);
+    lv_label_set_text(ascii_data, data->decoded_data);
+    //lv_obj_set_style_text_font(ascii_data, &lv_font_montserrat_16, LV_PART_MAIN);
+
+    label = lv_label_create(mbox1);
+    lv_label_set_text(label, "Hex string format:");
+    lv_obj_set_style_text_color(label, lv_color_hex(0x888888), 0); // Light grey
+    container = lv_obj_create(mbox1);
+    lv_obj_set_size(container, LV_PCT(100), LV_SIZE_CONTENT);
+    ascii_data = lv_label_create(container);
+    char hex_str[512];
+    size_t pos = 0;
+    for (size_t i = 0; i < data->size_decoded_data && pos < sizeof(hex_str) - 3; i++) {
+        pos += snprintf(&hex_str[pos], sizeof(hex_str) - pos, "%02X ", (unsigned char)data->decoded_data[i]);
+    }
+    //lv_obj_set_style_text_font(ascii_data, &lv_font_montserrat_16, LV_PART_MAIN);
+    lv_label_set_text(ascii_data, hex_str);
+    lv_msgbox_add_close_button(mbox1);
+}
+
+void show_waveform_button_cb(lv_event_t * e)
+{
+    Serial_analyzer_data_t *data = lv_event_get_user_data(e);
+    lv_obj_t * mbox1 = lv_msgbox_create(NULL);
+    lv_obj_set_width(mbox1, 400);
+    lv_msgbox_add_title(mbox1, "data waveform");
+    lv_obj_t *label = lv_label_create(mbox1);
+    size_t max_length = 100; //max length of bits to display
+    max_length = (data->size_bit_array < max_length) ? data->size_bit_array : max_length;
+    char buf[64];
+    snprintf(buf, sizeof(buf), "Displaying the first %d bits of the recorded data", max_length);
+    lv_label_set_text(label, buf);
+
+    lv_span_t * span = NULL;
+    lv_obj_t * spans = lv_spangroup_create(mbox1);
+    lv_spangroup_set_align(spans, LV_TEXT_ALIGN_LEFT);
+    lv_spangroup_set_mode(spans, LV_SPAN_MODE_EXPAND);
+    span = lv_spangroup_new_span(spans);
+    lv_span_set_text(span, "Start   ");
+    lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(0x00FF00)); // green
+    span = lv_spangroup_new_span(spans);
+    lv_span_set_text(span, "Data   ");
+    lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(0xFFFF00)); // yellow
+    span = lv_spangroup_new_span(spans);
+    lv_span_set_text(span, "Parity   ");
+    lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(0x00FFFF)); // Cyan
+    span = lv_spangroup_new_span(spans);
+    lv_span_set_text(span, "Stop   ");
+    lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(0xFF8000)); // Orange
+    span = lv_spangroup_new_span(spans);
+    lv_span_set_text(span, "Idle");
+    lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(0xFFFFFF)); // White
+    lv_spangroup_refr_mode(spans);
+
+    /*lv_obj_t *label = lv_label_create(mbox1);
+    lv_label_set_text(label, "Start bit");
+    lv_obj_set_style_text_color(label, lv_color_hex(0x00FF00), 0); // green
+    label = lv_label_create(mbox1);
+    lv_label_set_text(label, "Data bits");
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFFFF00), 0); // yellow
+    label = lv_label_create(mbox1);
+    lv_label_set_text(label, "Parity bit");
+    lv_obj_set_style_text_color(label, lv_color_hex(0x00FFFF), 0); // Cyan
+    label = lv_label_create(mbox1);
+    lv_label_set_text(label, "Stop bit(s)");
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFF8000), 0); // Cyan*/
+
+    lv_obj_t *container = lv_obj_create(mbox1);
+    //lv_obj_set_width(container, LV_PCT(100));
+    lv_obj_set_size(container, LV_PCT(100), LV_SIZE_CONTENT);
+    spans = lv_spangroup_create(container);
+    lv_spangroup_set_align(spans, LV_TEXT_ALIGN_LEFT);
+    lv_spangroup_set_mode(spans, LV_SPAN_MODE_EXPAND);
+    lv_obj_set_style_text_font(spans, &lv_font_montserrat_24, 0);
+    char text_buf[max_length];
+    uint32_t prev_color = 0xFFFFFF;
+    size_t buf_len = 0;
+    for(int i = 0; i<max_length; i++)
+    {
+        uint8_t bit = data->bit_array[i];
+        uint32_t color = 0xFFFFFF;
+        char symbol = (bit & 0x01) ? '-' : '_';
+
+        if (bit & 0x02) {          // start bit
+            color = 0x00FF00;
+        } else if (bit & 0x04) {   // data bit
+            color = 0xFFFF00;
+        } else if (bit & 0x08) {   // parity bit
+            color = 0x00FFFF;
+        } else if (bit & 0x10) {   // stop bit
+            color = 0xFF8000;
+        } else {
+            color = 0xFFFFFF; //
+        }
+
+        // Start a new span if color changes or buffer is full
+        if (color != prev_color && buf_len > 0) {
+            text_buf[buf_len] = '\0'; // Null terminate
+            span = lv_spangroup_new_span(spans);
+            lv_span_set_text(span, text_buf);
+            lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(prev_color));
+            buf_len = 0;
+        }
+        text_buf[buf_len++] = symbol;
+        prev_color = color;
+    }
+
+    if (buf_len > 0) {
+        text_buf[buf_len] = '\0';
+        lv_span_t *span = lv_spangroup_new_span(spans);
+        lv_span_set_text(span, text_buf);
+        lv_style_set_text_color(lv_span_get_style(span), lv_color_hex(prev_color));
+    }
+
+    lv_spangroup_refr_mode(spans);
+    lv_msgbox_add_close_button(mbox1);
+}
+
+void Results_back_button_cb()
+{
+    analyzer_task_terminate_g = true;
     serial_analyzer_settings_screen();
+}
+
+//void serial_analyzer_show_results_screen_async(Serial_analyzer_data_t *data)
+void serial_analyzer_show_results_screen_async(void *num_ptr)
+{
+    Serial_analyzer_data_t *data = (Serial_analyzer_data_t *)num_ptr;
+    if(data->num_symbols == 0) {
+        analyzer_task_terminate_g = true;
+        serial_analyzer_settings_screen();
+        return;
+    }
+    lv_obj_clean(lv_scr_act());
+    lv_obj_t * screen = lv_obj_create(NULL);
+    lv_scr_load(screen);
+    create_background_screen();
+
+    //Label
+    lv_obj_t *title = lv_label_create(lv_screen_active());
+    lv_label_set_text(title, "Results");
+    lv_obj_set_style_text_font(title, &lv_font_montserrat_20, LV_PART_MAIN);
+    lv_obj_align(title, LV_ALIGN_TOP_LEFT, 5, 25);
+
+    static lv_style_t style_main;
+    lv_style_init(&style_main);
+    lv_style_set_bg_opa(&style_main, LV_OPA_30); // Transparent main background
+    lv_style_set_border_width(&style_main, 0);       // No outer border
+    static lv_style_t cell_style;
+    lv_style_init(&cell_style);
+    lv_style_set_pad_top(&cell_style, 5);    // Reduce top padding
+    lv_style_set_pad_bottom(&cell_style, 5); // Reduce bottom padding
+    lv_style_set_bg_opa(&cell_style, LV_OPA_TRANSP); //transparent background
+    lv_style_set_border_width(&cell_style, 3);         // Thicker border
+    lv_style_set_border_side(&cell_style,
+    LV_BORDER_SIDE_TOP | LV_BORDER_SIDE_BOTTOM |
+    LV_BORDER_SIDE_LEFT | LV_BORDER_SIDE_RIGHT);
+    //lv_style_set_border_color(&cell_style, lv_color_hex(0xFFFFFF)); // White border
+    //lv_style_set_border_opa(&cell_style, LV_OPA_COVER);
+    lv_obj_t * table = lv_table_create(lv_screen_active());
+    //lv_obj_set_size(table, 280, 295);
+    lv_obj_set_size(table, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_pos(table, 205, 30);
+    lv_obj_add_style(table, &cell_style, LV_PART_ITEMS);
+    lv_obj_add_style(table, &style_main, LV_PART_MAIN);
+
+    char buf[16];
+
+        /*Fill the first column*/
+    lv_table_set_cell_value(table, 0, 0, "Measured Baudrate");
+    lv_table_set_cell_value(table, 1, 0, "Closest Baudrate");
+    lv_table_set_cell_value(table, 2, 0, "frame format");
+    lv_table_set_cell_value(table, 3, 0, "Ascii/Binary");
+    lv_table_set_cell_value(table, 4, 0, "Recorded symbols");
+    lv_table_set_cell_value(table, 5, 0, "Decoded frames");
+    lv_table_set_cell_value(table, 6, 0, "Framing errors");
+
+    /*Fill the second column*/
+    snprintf(buf, sizeof(buf), "%"PRIu32, data->measured_baud_rate);
+    lv_table_set_cell_value(table, 0, 1, buf);
+    snprintf(buf, sizeof(buf), "%"PRIu32, data->nearest_baud_rate);
+    lv_table_set_cell_value(table, 1, 1, buf);
+    char parity_char = (data->parity_type == SERIAL_PARITY_NONE) ? 'N' :
+                            (data->parity_type == SERIAL_PARITY_EVEN) ? 'E' : 'O';
+    snprintf(buf, sizeof(buf), "%d%c%d", data->num_data_bits, parity_char, data->num_stop_bits);
+    lv_table_set_cell_value(table, 2, 1, buf);
+    snprintf(buf, sizeof(buf), "%s", data->is_ASCII ? "ascii" : "Binary");
+    lv_table_set_cell_value(table, 3, 1, buf);
+    snprintf(buf, sizeof(buf), "%"PRIu16, data->num_symbols);
+    lv_table_set_cell_value(table, 4, 1, buf);
+    snprintf(buf, sizeof(buf), "%"PRIu16, data->num_frames);
+    lv_table_set_cell_value(table, 5, 1, buf);
+    snprintf(buf, sizeof(buf), "%"PRIu16, data->num_framing_errors);
+    lv_table_set_cell_value(table, 6, 1, buf);
+
+    // flex group for buttons
+    static lv_style_t style;
+    lv_style_init(&style);
+    lv_style_set_flex_flow(&style, LV_FLEX_FLOW_COLUMN);
+    lv_style_set_flex_main_place(&style, LV_FLEX_ALIGN_SPACE_EVENLY);
+    lv_style_set_layout(&style, LV_LAYOUT_FLEX);
+
+    lv_obj_t *button_group = lv_obj_create(lv_screen_active());
+    lv_obj_set_size(button_group, 205, 250);
+    lv_obj_align(button_group, LV_ALIGN_TOP_LEFT, 10, 55);
+    lv_obj_add_style(button_group, &style, 0);
+    lv_obj_set_style_pad_all(button_group, 0, 0);  // Removes all internal padding
+    lv_obj_set_style_border_width(button_group, 0, 0);
+    lv_obj_set_style_bg_opa(button_group, LV_OPA_TRANSP, 0);  // Transparent
+
+    lv_obj_t *button = NULL;
+    lv_obj_t *button_label = NULL;
+
+    button = lv_button_create(button_group);
+    //lv_obj_set_style_bg_color(button, lv_color_hex(0xAA0000), LV_PART_MAIN);
+    lv_obj_set_width(button, LV_PCT(90));
+    lv_obj_set_flex_grow(button, 1);
+    button_label = lv_label_create(button);
+    lv_obj_center(button_label);
+    lv_label_set_text(button_label, "Go to Terminal");
+    lv_obj_add_event_cb(button, (lv_event_cb_t)go_to_terminal_button_cb, LV_EVENT_CLICKED, data);
+
+    button = lv_button_create(button_group);
+    //lv_obj_set_style_bg_color(button, lv_color_hex(0x666666), LV_PART_MAIN);
+    lv_obj_set_width(button, LV_PCT(90));
+    lv_obj_set_flex_grow(button, 1);
+    button_label = lv_label_create(button);
+    lv_obj_center(button_label);
+    lv_label_set_text(button_label, "Show data");
+    LV_LOG_USER("Data: %p num_symbols= %d", data, data->num_symbols);
+    lv_obj_add_event_cb(button, (lv_event_cb_t)show_data_button_cb, LV_EVENT_CLICKED, data);
+
+    button = lv_button_create(button_group);
+    //lv_obj_set_style_bg_color(button, lv_color_hex(0x666666), LV_PART_MAIN);
+    lv_obj_set_width(button, LV_PCT(90));
+    lv_obj_set_flex_grow(button, 1);
+    button_label = lv_label_create(button);
+    lv_obj_center(button_label);
+    lv_label_set_text(button_label, "Show waveform");
+    lv_obj_add_event_cb(button, (lv_event_cb_t)show_waveform_button_cb, LV_EVENT_CLICKED, data);
+
+    button = lv_button_create(button_group);
+    lv_obj_set_style_bg_color(button, lv_color_hex(0xAA0000), LV_PART_MAIN);
+    lv_obj_set_width(button, LV_PCT(90));
+    lv_obj_set_flex_grow(button, 1);
+    button_label = lv_label_create(button);
+    lv_obj_center(button_label);
+    lv_label_set_text(button_label, "Exit");
+    lv_obj_add_event_cb(button, (lv_event_cb_t)Results_back_button_cb, LV_EVENT_CLICKED, NULL);
 }
 
 void serial_analyzer_recording_screen()
@@ -416,7 +710,7 @@ void serial_analyzer_recording_screen()
     lv_obj_set_style_bg_color(recording_cancel_button, lv_color_hex(0xAA0000), LV_PART_MAIN);
     lv_obj_set_width(recording_cancel_button, LV_PCT(90));
     lv_obj_t *recording_cancel_button_label = lv_label_create(recording_cancel_button);
-    lv_label_set_text(recording_cancel_button_label, "Abort");
+    lv_label_set_text(recording_cancel_button_label, "Stop recording");
     lv_obj_set_style_text_font(recording_cancel_button_label, &lv_font_montserrat_20, LV_PART_MAIN);
 
     lv_obj_center(recording_cancel_button_label);
@@ -435,3 +729,30 @@ void serial_analyzer_init_defaults(SerialAnalyzerConfig *config)
     config->stop_when_bus_idle = false;
     config->sample_size = 100;  // Default sample size
 }
+
+#ifndef ESP_PLATFORM
+void fill_serial_analyzer_data(Serial_analyzer_data_t *data)
+{
+    // Example static data
+    static uint8_t example_bits[] = {0x02, 0x05 ,0x04, 0x05 ,0x04, 0x05 ,0x04, 0x05 ,0x04, 0x08, 0x11,0,0};
+    static char example_text[] = "HELLO";
+
+    *data = (Serial_analyzer_data_t){
+        .num_symbols = 120,
+        .bit_duration_ns = 8600,
+        .measured_baud_rate = 115384,
+        .nearest_baud_rate = 115200,
+        .num_frames = 10,
+        .num_framing_errors = 1,
+        .num_data_bits = 8,
+        .num_stop_bits = 1,
+        .parity_type = SERIAL_PARITY_NONE,
+        .is_ASCII = false,
+        .bit_array = example_bits,
+        .size_bit_array = sizeof(example_bits),
+        .decoded_data = example_text,
+        .size_decoded_data = sizeof(example_text)
+    };
+}
+
+#endif // ESP_PLATFORM

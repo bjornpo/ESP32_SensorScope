@@ -43,6 +43,7 @@ void app_main(void)
         .pin_bit_mask = 1ULL << 48
     };
     ESP_ERROR_CHECK(gpio_config(&test2_gpio_config));
+    //gpio_set_level(GPIO_NUM_48, 1);
 
 
     // Display LVGL content (e.g., demo widget)
